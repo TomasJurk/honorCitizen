@@ -22,6 +22,18 @@ export class HomeComponent implements OnInit {
     this._auth.fbLogin();
   }
 
+  logout() {
+  	this._auth.logout();
+  }
+
+  isLoggedIn() {
+  	this._auth.isLoggedIn().then(d => console.log(d));
+  }
+
+  getCurrentUser() {
+  	this._auth.getCurrentUser().then(d => console.log(d));
+  }
+
   // get() {
   // 	this._auth.get().subscribe(data => console.log(data))
   // }
