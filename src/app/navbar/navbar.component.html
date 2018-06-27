@@ -1,0 +1,13 @@
+<mat-toolbar>
+  <span class="spacer"></span>
+  <form (ngSubmit)="signIn()">
+      <mat-form-field class="sign-in-field">
+        <input placeholder="email" type="email" matInput>
+      </mat-form-field>
+      <mat-form-field class="sign-in-field">
+        <input placeholder="password" type="password" matInput>
+      </mat-form-field>
+    <button mat-button type="submit">Sing In</button>
+    <button mat-button (click)="openDialog()">New user</button>
+  </form>
+</mat-toolbar>
