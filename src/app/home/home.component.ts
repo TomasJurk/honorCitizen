@@ -18,6 +18,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  emailSignup() {
+    this._auth.emailSignup().subscribe(d => console.log(d.json()));
+  }
+
   fbLogin() {
     this._auth.fbLogin();
   }

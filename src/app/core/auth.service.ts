@@ -24,7 +24,9 @@ export class AuthService {
     })
   }
 
-  
+  emailSignup() {
+    return this.http.post('http://localhost:3000/api/v1/auth/email', {email: 'email@email.com', password: 'password'})
+  }
 
   fbLogin() {
     return new Promise((resolve, reject) => {
