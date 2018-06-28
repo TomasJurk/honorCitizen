@@ -1,0 +1,6 @@
+postModel: 
+	- media
+	- desc
+	- user
+	- comments
+	- likes
