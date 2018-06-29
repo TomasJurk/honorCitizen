@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {} from '@types/googlemaps';
+import { } from '@types/googlemaps';
+
+declare var google: any;
 
 @Component({
   selector: 'app-home',
@@ -15,16 +17,20 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     const mapProp = {
-      center: new google.maps.LatLng(18.5793, 73.8143),
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      center: new google.maps.LatLng(55.174692, 23.888514),
+      zoom: 7.9,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true,
+      gestureHandling: 'none',
+      zoomControl: false,
+      styles: [{
+        featureType: 'all',
+        elementType: 'labels',
+        stylers: [
+          { visibility: 'off' }
+        ]
+      }]
     };
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
   }
-
-  initializeMap() {
-    // 55.295004, 23.771585
-  }
-
-
 }
