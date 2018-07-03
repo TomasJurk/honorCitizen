@@ -25,7 +25,15 @@ export class AuthService {
   }
 
   emailSignup() {
-    return this.http.post('http://localhost:3000/api/v1/auth/email', {email: 'email@email.com', password: 'password'})
+    return this.http.post('http://localhost:3000/api/auth/emailSignup', {email: 'email@email.com', password: 'password'})
+  }
+
+  emailLogin() {
+    return this.http.post('http://localhost:3000/api/auth/login', {email: 'email@email.com', password: 'password'})
+  }
+
+  logoutEmail() {
+    return this.http.get('http://localhost:3000/api/auth/logout')
   }
 
   fbLogin() {
@@ -35,7 +43,7 @@ export class AuthService {
           let token = result.authResponse.accessToken;
           // FB.api('/me', {fields: ['first_name', 'last_name']}, (response) => {
             // console.log(response);
-            return this.http.post(`http://localhost:3000/api/v1/auth/facebook`, { access_token: token })
+            return this.http.post(`http://localhost:3000/api/auth/facebook`, { access_token: token })
               .toPromise()
               .then(response => {
                 var token = response.headers.get('x-auth-token');
@@ -65,7 +73,7 @@ export class AuthService {
 
   getCurrentUser() {
     return new Promise((resolve, reject) => {
-      return this.http.get(`http://localhost:3000/api/v1/auth/me`).toPromise().then(response => {
+      return this.http.get(`http://localhost:3000/api/auth/me`).toPromise().then(response => {
         resolve(response.json());
       }).catch(() => reject());
     });

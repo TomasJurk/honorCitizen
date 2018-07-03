@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import { FileSelectDirective } from 'ng2-file-upload';
 import { AuthService } from './core/auth.service';
 import { AuthHttp, AuthConfig } from 'angular2-jwt'
 import { HttpClientModule } from '@angular/common/http';
@@ -28,7 +28,8 @@ export function getAuthHttp(http: Http) {
     AppComponent,
     HomeComponent,
     ContactsComponent,
-    NewPostComponent
+    NewPostComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
