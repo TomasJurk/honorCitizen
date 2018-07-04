@@ -5,16 +5,24 @@
 <button (click)='getCurrentUser()'>getCurrentUser</button>
 <button (click)='emailSignup()'>emailSignup</button>
 <button (click)='emailLogin()'>emailLogin</button>
-<button (click)='logoutEmail()'>logoutEmail</button>
 <button (click)='getPosts()'>getPosts</button>
 <hr>
 <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
 <button (click)="newPost()">upload Image</button>
 
-<div *ngFor="let post of postList">
+<div class="posts" *ngFor="let post of postList">
 	<span>{{post.description}}</span>
 	<img src="http:\\localhost:3000\{{post.image}}" alt="">
+	<div *ngIf="post.lastComment" class="last-comment">
+		<img src="{{post.lastComment.userPhoto}}" alt="">
+		<strong>{{post.lastComment.username}}</strong>
+		<p>{{post.lastComment.message}}</p>
+	</div>
+	<div *ngIf="!post.lastComment" class="last-comment">
+		No comments
+	</div>
 	<input #inp type="text" placeholder="comment">
 	<button (click)="postComment(inp.value, post._id)">post</button>
+	<button (click)='logAllComments(post._id)'>logAllComments</button>
 	<!-- <span>{{post._id}}</span> -->
 </div>

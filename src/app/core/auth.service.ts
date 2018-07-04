@@ -9,57 +9,48 @@ declare const FB: any;
 })
 export class AuthService {
 
-  // usersURL: string = 'http://192.168.0.6:4200/users'
-
   constructor(
-    // private http: HttpClient,
     private http: AuthHttp
   ) {
-    FB.init({
-      appId: 233355730725067,
-      status: false,
-      cookie: false,
-      xfbml: false,
-      version: 'v3.0'
-    })
+    // FB.init({
+    //   appId: 233355730725067,
+    //   status: false,
+    //   cookie: false,
+    //   xfbml: false,
+    //   version: 'v3.0'
+    // })
   }
 
   emailSignup() {
-    return this.http.post('http://localhost:3000/api/auth/emailSignup', 
+    return this.http.post('http://localhost:3000/api/auth/emailSignup',
       {
-        fullName: 'John Smith', 
-        email: 'email@email.com', 
-        password: 'password', 
+        fullName: 'John Smith',
+        email: 'email@email.com',
+        password: 'password',
         photoURL: 'https://npengage.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png'
       })
   }
 
   emailLogin() {
-    return this.http.post('http://localhost:3000/api/auth/login', {email: 'email@email.com', password: 'password'})
+    return this.http.post('http://localhost:3000/api/auth/login', { email: 'email@email.com', password: 'password' })
   }
 
-  logoutEmail() {
-    return this.http.get('http://localhost:3000/api/auth/logout')
-  }
 
   fbLogin() {
     return new Promise((resolve, reject) => {
       FB.login(result => {
         if (result.authResponse) {
           let token = result.authResponse.accessToken;
-          // FB.api('/me', {fields: ['first_name', 'last_name']}, (response) => {
-            // console.log(response);
-            return this.http.post(`http://localhost:3000/api/auth/facebook`, { access_token: token })
-              .toPromise()
-              .then(response => {
-                var token = response.headers.get('x-auth-token');
-                if (token) {
-                  localStorage.setItem('id_token', token);
-                }
-                resolve(response.json());
-              })
-              .catch(() => reject());
-          // });
+          return this.http.post(`http://localhost:3000/api/auth/facebook`, { access_token: token })
+            .toPromise()
+            .then(response => {
+              var token = response.headers.get('x-auth-token');
+              if (token) {
+                localStorage.setItem('id_token', token);
+              }
+              resolve(response.json());
+            })
+            .catch(() => reject());
         } else {
           reject();
         }
@@ -85,15 +76,5 @@ export class AuthService {
       }).catch(() => reject());
     });
   }
-
-  // get() {
-  // 	return this.http.get(this.usersURL);
-  // }
-
-  // post(email: string, password: string) {
-  // // console.log({ email, password });
-  // 	return this.http.post(this.usersURL, {email, password});
-  // }
-
 
 }

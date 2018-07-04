@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
 import { AuthHttp } from 'angular2-jwt';
 
 @Injectable({
@@ -22,4 +21,9 @@ export class PostService {
   postComment(body: any) {
     return this.http.post('http://localhost:3000/comments/post', body)
   }
+
+  getAllComments(postid: string) {
+    return this.http.get('http://localhost:3000/comments/all/' + postid)
+  }
+
 }

@@ -1,0 +1,24 @@
+AuthHttp
+
+Registracija (post):
+	su email: http://localhost:3000/api/auth/emailSignup
+		params: {email: string, password: string}
+
+
+Prisijungimas (post)
+	su email: http://localhost:3000/api/auth/login
+		params: {email: string, password: string}
+
+	su fb: http://localhost:3000/api/auth/facebook
+
+Get current user (get)
+	http://localhost:3000/api/auth/me
+
+Post post (post)
+	http://localhost:3000/posts/post
+
+Get all posts (get)
+	http://localhost:3000/posts/post
+
+Post comment (post)
+	http://localhost:3000/comments/post
