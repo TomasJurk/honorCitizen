@@ -25,7 +25,13 @@ export class AuthService {
   }
 
   emailSignup() {
-    return this.http.post('http://localhost:3000/api/auth/emailSignup', {email: 'email@email.com', password: 'password'})
+    return this.http.post('http://localhost:3000/api/auth/emailSignup', 
+      {
+        fullName: 'John Smith', 
+        email: 'email@email.com', 
+        password: 'password', 
+        photoURL: 'https://npengage.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png'
+      })
   }
 
   emailLogin() {
@@ -63,6 +69,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('id_token');
+    localStorage.removeItem('user');
   }
 
   isLoggedIn() {

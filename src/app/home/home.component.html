@@ -8,5 +8,13 @@
 <button (click)='logoutEmail()'>logoutEmail</button>
 <button (click)='getPosts()'>getPosts</button>
 <hr>
-<input type="file" (change)='storeFile($event.target.files[0])'>
-<button (click)="newPost()">newPost</button>
+<input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+<button (click)="newPost()">upload Image</button>
+
+<div *ngFor="let post of postList">
+	<span>{{post.description}}</span>
+	<img src="http:\\localhost:3000\{{post.image}}" alt="">
+	<input #inp type="text" placeholder="comment">
+	<button (click)="postComment(inp.value, post._id)">post</button>
+	<!-- <span>{{post._id}}</span> -->
+</div>

@@ -11,11 +11,15 @@ export class PostService {
   	private http: AuthHttp
   ) { }
 
-  createNewPost(file) {
-  	return this.http.post('http://localhost:3000/posts/test',{},file)
+  createNewPost() {
+  	return this.http.post('http://localhost:3000/posts/post',{})
   }
 
   getAllPosts() {
   	return this.http.get('http://localhost:3000/posts/post')
+  }
+
+  postComment(body: any) {
+    return this.http.post('http://localhost:3000/comments/post', body)
   }
 }
