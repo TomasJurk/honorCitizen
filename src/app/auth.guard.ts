@@ -23,7 +23,8 @@ export class AuthGuard implements CanActivate {
 				resolve(true);
 			}).catch(() => {
 				this.router.navigate(['/home']);
-				reject(false);
+				// console.log('unauthorized')
+				resolve();
 			});
 		});
 	}

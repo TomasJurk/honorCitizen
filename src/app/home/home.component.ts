@@ -3,8 +3,8 @@ import { AuthService } from '../core/auth.service';
 import { PostService } from '../core/post.service';
 import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file-upload/ng2-file-upload';
 import { AuthHttp } from 'angular2-jwt';
+import url from '../url';
 
-const URL = 'http://localhost:3000/posts/post';
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
@@ -12,13 +12,13 @@ const URL = 'http://localhost:3000/posts/post';
 })
 export class HomeComponent implements OnInit {
 
-	public uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'photo' });
+	public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
 
 	constructor(private _auth: AuthService,
 		private _post: PostService) { }
 
 	user: object;
-
+	message: string = 'Post message';
 	postList: any[];
 
 	ngOnInit() {
@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit {
 		if (localStorage.user) {
 			this.user = JSON.parse(localStorage.user)
 		}
+	}
+
+	deletePost(id) {
+		this._post.deletePost(id).subscribe(res => console.log(res));
 	}
 
 	logAllComments(id) {
@@ -47,7 +51,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	newPost() {
-		let desc = 'This is an image';
+		let desc = this.message;
 		let id = JSON.parse(localStorage.user)._id;
 		let options: FileUploaderOptions = {};
 		let token = localStorage.id_token;
@@ -59,7 +63,7 @@ export class HomeComponent implements OnInit {
 		this.uploader.setOptions(options);
 		this.uploader.uploadAll();
 		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-			console.log(response);
+			console.log(JSON.parse(response));
 		};
 	}
 
@@ -84,7 +88,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	emailSignup() {
-		this._auth.emailSignup().subscribe(d => console.log(d));
+		this._auth.emailSignup().subscribe(d => console.log(d.json()));
 	}
 
 	fbLogin() {
@@ -93,7 +97,7 @@ export class HomeComponent implements OnInit {
 				localStorage.setItem('user', JSON.stringify(data));
 				this.user = JSON.parse(localStorage.user);
 			})
-		})
+		}).catch(err => console.log(err))
 	}
 
 	logout() {
@@ -101,11 +105,15 @@ export class HomeComponent implements OnInit {
 	}
 
 	isLoggedIn() {
-		this._auth.isLoggedIn().then(d => console.log(d));
+		this._auth.isLoggedIn()
+			.then(d => console.log(d))
+			.catch(err => console.log(err));
 	}
 
 	getCurrentUser() {
-		this._auth.getCurrentUser().then(d => console.log(d));
+		this._auth.getCurrentUser()
+			.then(d => console.log(d))
+			.catch(err => console.log(err));
 	}
 
 

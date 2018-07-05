@@ -8,11 +8,13 @@
 <button (click)='getPosts()'>getPosts</button>
 <hr>
 <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+<input [(ngModel)]="message" type="text">
 <button (click)="newPost()">upload Image</button>
 
 <div class="posts" *ngFor="let post of postList">
 	<span>{{post.description}}</span>
-	<img src="http:\\localhost:3000\{{post.image}}" alt="">
+	<button (click)="deletePost(post._id)">Delete post</button>
+	<img src="http://localhost:3000/{{post.image}}" alt="">
 	<div *ngIf="post.lastComment" class="last-comment">
 		<img src="{{post.lastComment.userPhoto}}" alt="">
 		<strong>{{post.lastComment.username}}</strong>
