@@ -1,5 +1,10 @@
 <mat-toolbar class="navbar-container">
   <span class="spacer"></span>
+  <div *ngIf="!user">
   <button mat-button (click)="openLoginDialog()">Sign In</button>
   <button mat-button (click)="openNewUserDialog()">New user</button>
+  </div>
+  <div *ngIf="user">
+    <button mat-button (click)="logOut()">Log Out</button>
+  </div>
 </mat-toolbar>

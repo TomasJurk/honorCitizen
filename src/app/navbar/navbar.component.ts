@@ -9,14 +9,21 @@ import { AuthService } from '../core/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
+  user;
   constructor(
     public newUserDialog: MatDialog,
     public loginDialog: MatDialog,
     private _aS: AuthService
-  ) { }
+  ) {
+    loginDialog.afterAllClosed
+      .subscribe(() => {
+        this.getUser();
+      });
+
+  }
 
   ngOnInit() {
+    this.getUser();
   }
 
   openNewUserDialog() {
@@ -37,6 +44,15 @@ export class NavbarComponent implements OnInit {
 
   signIn(email, password) {
     this._aS.emailLogIn(email, password);
+  }
+  logOut() {
+    this.user = null;
+    this._aS.logOut();
+  }
+  getUser() {
+    if (window.localStorage.user){
+      this.user = JSON.parse(window.localStorage.user);
+    }
   }
 
 }

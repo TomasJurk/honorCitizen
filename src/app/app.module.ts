@@ -25,6 +25,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { AgmCoreModule } from '@agm/core';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +51,11 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatDialogModule,
     MatCardModule,
     MatInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    // AgmCoreModule.forRoot({
+    //   // Laikinas api key
+    //   apiKey: 'AIzaSyDpljuRuGRfS8aXmJtg-J0iO849Ageqj_c'
+    // })
   ],
   entryComponents: [
     NewUserModalComponent,
