@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 // SERVICES
 import { AuthService } from './core/auth.service';
 import { PostService } from './core/post.service';
@@ -12,6 +12,8 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NewUserModalComponent } from './modals/new-user-modal/new-user-modal.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { LoginModalComponent } from './modals/login-modal/login-modal.component';
 
 // MODULES
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +25,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     NewPostComponent,
     ProfileComponent,
     NewUserModalComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoginModalComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatToolbarModule
   ],
   entryComponents: [
-    NewUserModalComponent
+    NewUserModalComponent,
+    LoginModalComponent
   ],
   providers: [AuthService, PostService],
   bootstrap: [AppComponent]

@@ -23,7 +23,7 @@ export class AuthService {
       email: email,
       password: password
     };
-    console.log(userData)
+    console.log(userData);
     return this.http.post(this.url + 'auth/login', userData).subscribe(res => console.log(res));
   }
 }

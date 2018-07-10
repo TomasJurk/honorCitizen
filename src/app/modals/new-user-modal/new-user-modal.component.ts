@@ -4,7 +4,8 @@ import { FormControl } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
-type UserFields = 'name' | 'email' | 'password';
+
+type UserFields = 'name' | 'email' | 'password' | 'repeatPassword';
 type FormErrors = { [u in UserFields]: string };
 
 @Component({
@@ -18,7 +19,8 @@ export class NewUserModalComponent implements OnInit {
   formErrors: FormErrors = {
     'name': '',
     'email': '',
-    'password': ''
+    'password': '',
+    'repeatPassword': ''
   };
 
   validationMessage = {
@@ -35,6 +37,10 @@ export class NewUserModalComponent implements OnInit {
       'pattern': 'Password must contain at least one letter and number.',
       'minlength': 'Password must be at least 6 char long.',
       'maslength': 'Password cannot be more than 40 chars long.'
+    },
+    'repeatPassword': {
+      'required': 'Repeat password is required',
+      'mustBeSame': 'Repeat password must be same as password'
     }
   };
 
@@ -65,6 +71,9 @@ export class NewUserModalComponent implements OnInit {
           Validators.minLength(6),
           Validators.maxLength(40),
           Validators.required
+        ]],
+        'repeatPassword': ['', [
+          Validators.required,
         ]]
       }
     );
@@ -73,11 +82,10 @@ export class NewUserModalComponent implements OnInit {
     );
     this.onValueChanged();
   }
+
   onValueChanged(data?: any) {
     if (!this.userForm) { return; }
-
     const form = this.userForm;
-
     for (const field in this.formErrors) {
       if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
         this.formErrors[field] = '';
@@ -85,6 +93,10 @@ export class NewUserModalComponent implements OnInit {
         if (control && control.dirty && !control.valid) {
           const messages = this.validationMessage[field];
           if (control.errors) {
+           /*  if (this.userForm.value.password !== this.userForm.value.repeatPassword) {
+              this.formErrors['repeatPassword'] = this.validationMessage['repeatPassword']['mustBeSame'];
+              return;
+            } */
             for (const key in control.errors) {
               if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
                 this.formErrors[field] += `${(messages as {[key: string]: string})[key]} \n`;
