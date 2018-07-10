@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../../core/auth.service';
 type UserFields = 'name' | 'email' | 'password';
 type FormErrors = { [u in UserFields]: string };
 
@@ -41,7 +41,8 @@ export class NewUserModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private _aS: AuthService
   ) { }
 
   ngOnInit() {
@@ -72,7 +73,6 @@ export class NewUserModalComponent implements OnInit {
     );
     this.onValueChanged();
   }
-
   onValueChanged(data?: any) {
     if (!this.userForm) { return; }
 
@@ -97,7 +97,10 @@ export class NewUserModalComponent implements OnInit {
   }
 
   signUp() {
-    //
+    if (this.userForm.valid) {
+      this._aS.emailSignUp(this.userForm.value).subscribe(response => console.log(response));
+    }
+
   }
 
 }
