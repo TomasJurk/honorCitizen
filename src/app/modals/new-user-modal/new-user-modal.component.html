@@ -2,7 +2,7 @@
 
   <div class="sing-in-form">
     <h1>Sing Up</h1>
-    <form [formGroup]="userForm" (ngSubmit)="signUp()">
+    <form [formGroup]="userForm" (submit)="signUp()">
       <mat-form-field class="full-width">
         <input matInput type="text" formControlName="name" placeholder="name" required>
         <div class="sm-text is-danger" *ngIf="formErrors.name">

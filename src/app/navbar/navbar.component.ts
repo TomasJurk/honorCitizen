@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NewUserModalComponent } from '../modals/new-user-modal/new-user-modal.component';
-
+import { AuthService } from '../core/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -10,7 +10,8 @@ import { NewUserModalComponent } from '../modals/new-user-modal/new-user-modal.c
 export class NavbarComponent implements OnInit {
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private aS: AuthService
   ) { }
 
   ngOnInit() {
@@ -24,7 +25,8 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  signIn() {
+  signIn(email, password) {
+    this.aS.emailLogIn(email, password);
     //
   }
 
