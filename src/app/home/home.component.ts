@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { } from '@types/googlemaps';
+// import { Map } from '@types/googlemaps';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,8 +10,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
   title: 'My first AGM project';
-  lat: number = 55.254299;
-  lng: number = 23.886968;
+  lat = 55.254299;
+  lng = 23.886968;
   minZoom = 6;
 
 

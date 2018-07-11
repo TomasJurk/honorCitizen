@@ -90,13 +90,12 @@ export class NewUserModalComponent implements OnInit {
       if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
         this.formErrors[field] = '';
         const control = form.get(field);
+        if (this.userForm.value.password !== this.userForm.value.repeatPassword) {
+          this.formErrors['repeatPassword'] = this.validationMessage['repeatPassword']['mustBeSame'];
+        }
         if (control && control.dirty && !control.valid) {
           const messages = this.validationMessage[field];
           if (control.errors) {
-           /*  if (this.userForm.value.password !== this.userForm.value.repeatPassword) {
-              this.formErrors['repeatPassword'] = this.validationMessage['repeatPassword']['mustBeSame'];
-              return;
-            } */
             for (const key in control.errors) {
               if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
                 this.formErrors[field] += `${(messages as {[key: string]: string})[key]} \n`;

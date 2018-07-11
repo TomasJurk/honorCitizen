@@ -32,8 +32,8 @@ export class AuthService {
       .set('Content-Type', 'application/json'),
       observe: 'response'
     }).subscribe( res => {
-      this.token = res.headers.get('x-auth-token')
-      return this.currentUser()
+      this.token = res.headers.get('x-auth-token');
+      return this.currentUser();
     });
   }
   logOut() {

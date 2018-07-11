@@ -42,15 +42,12 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  signIn(email, password) {
-    this._aS.emailLogIn(email, password);
-  }
   logOut() {
     this.user = null;
     this._aS.logOut();
   }
   getUser() {
-    if (window.localStorage.user){
+    if (window.localStorage.user) {
       this.user = JSON.parse(window.localStorage.user);
     }
   }
