@@ -4,6 +4,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
 import { AuthHttp, AuthConfig } from 'angular2-jwt'
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule, Http } from '@angular/http';
+import { LayoutModule } from '@angular/cdk/layout';
+
 // SERVICES
 import { AuthService } from './core/auth.service';
 import { PostService } from './core/post.service';
@@ -69,7 +71,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatDialogModule,
     MatCardModule,
     MatInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    LayoutModule
   ],
   providers: [AuthService,
       {
