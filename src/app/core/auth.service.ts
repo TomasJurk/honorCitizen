@@ -22,18 +22,18 @@ export class AuthService {
     })
   }
 
-  emailSignup() {
+  emailSignup(fullName:string, email:string, password:string, photoURL:string) {
     return this.http.post(`${url}/users/auth/emailSignup`,
       {
-        fullName: 'John Smith',
-        email: 'email@email.com',
-        password: 'password',
-        photoURL: 'https://npengage.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png'
+        fullName,
+        email,
+        password,
+        photoURL
       })
   }
 
-  emailLogin() {
-    return this.http.post(`${url}/users/auth/login`, { email: 'email@email.com', password: 'password' })
+  emailLogin(email: string, password: string) {
+    return this.http.post(`${url}/users/auth/login`, { email, password})
   }
 
   fbLogin() {

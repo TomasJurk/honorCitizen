@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 		private _post: PostService) { }
 
 	user: object;
-	message: string = 'Post message';
+	message: string;
 	postList: any[];
 
 	ngOnInit() {
@@ -46,8 +46,7 @@ export class HomeComponent implements OnInit {
 			username: username,
 			postID: postID,
 			userID: userID
-		})
-			.subscribe(res => console.log(res))
+		}).subscribe(res => console.log(res))
 	}
 
 	newPost() {
