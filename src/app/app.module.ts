@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { NewPostComponent } from './new-post/new-post.component';
+import { TestFunctionsComponent } from './test-functions/test-functions.component';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -29,7 +30,8 @@ export function getAuthHttp(http: Http) {
     HomeComponent,
     ContactsComponent,
     NewPostComponent,
-    FileSelectDirective
+    FileSelectDirective,
+    TestFunctionsComponent
   ],
   imports: [
     BrowserModule,
