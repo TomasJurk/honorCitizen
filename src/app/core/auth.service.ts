@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthHttp } from 'angular2-jwt';
+// import { AuthHttp } from 'angular2-jwt';
 import url from '../url';
 
 declare const FB: any;
@@ -14,7 +14,7 @@ export class AuthService {
   public user;
 
   constructor(
-    private _http: AuthHttp,
+    // private _http: AuthHttp,
     private http: HttpClient
   ) {
     FB.init({
@@ -29,15 +29,15 @@ export class AuthService {
 
 // LUKO //
 // <<<<<<<<<<<
-  emailSignUp(user) {
-    const userData = {
-      email: user.email,
-      fullName: user.name,
-      photoURL: user.photoURL,
-      password: user.password,
-    };
-    return this.http.post(this.url + 'auth/emailSignup', userData);
-  }
+  // emailSignUp(user) {
+  //   const userData = {
+  //     email: user.email,
+  //     fullName: user.name,
+  //     photoURL: user.photoURL,
+  //     password: user.password,
+  //   };
+  //   return this.http.post(this.url + 'auth/emailSignup', userData);
+  // }
 
   emailSignup(fullName: string, email: string, password: string, photoURL: string) {
     return this._http.post(`${url}/users/auth/emailSignup`,
@@ -49,55 +49,55 @@ export class AuthService {
       })
   }
 
-  emailLogin(email: string, password: string) {
-    return this._http.post(`${url}/users/auth/login`, { email, password })
-  }
+  // emailLogin(email: string, password: string) {
+  //   return this._http.post(`${url}/users/auth/login`, { email, password })
+  // }
 
-  fbLogin() {
-    return new Promise((resolve, reject) => {
-      FB.login(result => {
-        if (result.authResponse) {
-          let token = result.authResponse.accessToken;
-          return this._http.post(`${url}/users/auth/facebook`, { access_token: token })
-            .toPromise()
-            .then(response => {
-              let token = response.headers.get('x-auth-token');
-              if (token) {
-                localStorage.setItem('id_token', token);
-              }
-              resolve(response.json());
-            })
-            .catch(() => reject());
-        } else {
-          reject();
-        }
-      }, { scope: 'public_profile,email' })
-    });
-  }
+  // fbLogin() {
+  //   return new Promise((resolve, reject) => {
+  //     FB.login(result => {
+  //       if (result.authResponse) {
+  //         let token = result.authResponse.accessToken;
+  //         return this._http.post(`${url}/users/auth/facebook`, { access_token: token })
+  //           .toPromise()
+  //           .then(response => {
+  //             let token = response.headers.get('x-auth-token');
+  //             if (token) {
+  //               localStorage.setItem('id_token', token);
+  //             }
+  //             resolve(response.json());
+  //           })
+  //           .catch(() => reject());
+  //       } else {
+  //         reject();
+  //       }
+  //     }, { scope: 'public_profile,email' })
+  //   });
+  // }
 
-  logout() {
-    if (localStorage.id_token) {
-      localStorage.removeItem('id_token');
-      localStorage.removeItem('user');
-      console.log('logged out');
-    } else {
-      console.log('not logged in')
-    }
-  }
+  // logout() {
+  //   if (localStorage.id_token) {
+  //     localStorage.removeItem('id_token');
+  //     localStorage.removeItem('user');
+  //     console.log('logged out');
+  //   } else {
+  //     console.log('not logged in')
+  //   }
+  // }
 
-  isLoggedIn() {
-    return new Promise((resolve, reject) => {
-      this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
-    });
-  }
+  // isLoggedIn() {
+  //   return new Promise((resolve, reject) => {
+  //     this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
+  //   });
+  // }
 
-  getCurrentUser() {
-    return new Promise((resolve, reject) => {
-      return this._http.get(`${url}/users/auth/me`).toPromise().then(response => {
-        resolve(response.json());
-      }).catch(() => reject());
-    });
-  }
+  // getCurrentUser() {
+  //   return new Promise((resolve, reject) => {
+  //     return this._http.get(`${url}/users/auth/me`).toPromise().then(response => {
+  //       resolve(response.json());
+  //     }).catch(() => reject());
+  //   });
+  // }
 
 // >>>>>>>>>>>
 
@@ -110,12 +110,8 @@ export class AuthService {
       email: email,
       password: password
     };
-    this.http.post(this.url + 'auth/login', userData, {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json'),
-      observe: 'response'
-    }).subscribe(res => {
-      this.token = res.headers.get('x-auth-token')
+    this.http.post(this.url + 'auth/login', userData).subscribe(res => {
+      this.token = res.headers.get('x-auth-token');
       return this.currentUser()
     });
   }

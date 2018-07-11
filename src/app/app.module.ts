@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FileSelectDirective } from 'ng2-file-upload';
-import { AuthHttp, AuthConfig } from 'angular2-jwt'
+import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule, Http } from '@angular/http';
+
+// import { AuthHttp, AuthConfig } from 'angular2-jwt'
+// import { HttpModule, Http } from '@angular/http';
 import { LayoutModule } from '@angular/cdk/layout';
 
 // SERVICES
@@ -17,14 +19,17 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { TestFunctionsComponent } from './test-functions/test-functions.component';
 
-export function getAuthHttp(http: Http) {
-  return new AuthHttp(new AuthConfig({
-    headerName: 'x-auth-token',
-    noTokenScheme: true,
-    noJwtError: true,
-    globalHeaders: [{'Accept': 'application/json'}],
-    tokenGetter: (() => localStorage.getItem('id_token')),
-  }), http);
+// export function getAuthHttp(http: Http) {
+//   return new AuthHttp(new AuthConfig({
+//     headerName: 'x-auth-token',
+//     noTokenScheme: true,
+//     noJwtError: true,
+//     globalHeaders: [{'Accept': 'application/json'}],
+//     tokenGetter: (() => localStorage.getItem('id_token')),
+//   }), http);
+// }
+export function tokenGetter() {
+  return localStorage.getItem('id_token');
 }
 
 import { ProfileComponent } from './profile/profile.component';
@@ -60,7 +65,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        headerName: 'x-auth-token',
+        whitelistedDomains: ['http://176.223.143.125:3000/api/'],
+        blacklistedRoutes: ['localhost:3000/auth/']
+      }
+    }),
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -75,11 +87,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     LayoutModule
   ],
   providers: [AuthService,
-      {
-      provide: AuthHttp,
-      useFactory: getAuthHttp,
-      deps: [Http]
-    }, PostService
+    //   {
+    //   provide: AuthHttp,
+    //   useFactory: getAuthHttp,
+    //   deps: [Http]
+    // },
+    PostService
   ],
   entryComponents: [
     NewUserModalComponent,
