@@ -1,119 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../core/auth.service';
-import { PostService } from '../core/post.service';
-import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file-upload/ng2-file-upload';
-import { AuthHttp } from 'angular2-jwt';
-import url from '../url';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
+import { } from '@types/googlemaps';
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('gmap') gmapElement: any;
+  map: google.maps.Map;
+  title: 'My first AGM project';
+  lat: number = 55.254299;
+  lng: number = 23.886968;
+  minZoom = 6;
 
-	public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
+  constructor() {
 
-	constructor(private _auth: AuthService,
-		private _post: PostService) { }
+  }
 
-	user: object;
-	message: string;
-	postList: any[];
+  ngOnInit() {
 
-	ngOnInit() {
-		this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-		if (localStorage.user) {
-			this.user = JSON.parse(localStorage.user)
-		}
-	}
+    const mapProp = {
+      center: new google.maps.LatLng(this.lat, this.lng),
+      zoom: this.minZoom,
+      minZoom: this.minZoom,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
 
-	deletePost(id) {
-		this._post.deletePost(id).subscribe(res => console.log(res));
-	}
+    this.limitPanning();
+  }
 
-	logAllComments(id) {
-		this._post.getAllComments(id).subscribe(data => console.log(data.json()))
-	}
+  limitPanning() {
+    const allowedBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(54.892278282770164, 22.935060156249847),
+      new google.maps.LatLng(55.5883080546512, 25.072633398437347)
+ );
+ let lastValidCenter = this.map.getCenter();
 
-	postComment(message, postID) {
-		let userID = JSON.parse(localStorage.user)._id;
-		let userPhoto = this.user['photoURL'];
-		let username = this.user['fullName'];
-		this._post.postComment({
-			message: message,
-			userPhoto: userPhoto,
-			username: username,
-			postID: postID,
-			userID: userID
-		}).subscribe(res => console.log(res))
-	}
+ google.maps.event.addListener(this.map, 'center_changed', () => {
+     if (allowedBounds.contains(this.map.getCenter())) {
+         // still within valid bounds, so save the last valid position
+         lastValidCenter = this.map.getCenter();
+         return;
+     }
 
-	newPost() {
-		let desc = this.message;
-		let id = JSON.parse(localStorage.user)._id;
-		let options: FileUploaderOptions = {};
-		let token = localStorage.id_token;
-		options.headers = [{ name: 'x-auth-token', value: token }];
-		this.uploader.onBuildItemForm = (item, form) => {
-			form.append('user', id);
-			form.append('description', desc);
-		}
-		this.uploader.setOptions(options);
-		this.uploader.uploadAll();
-		this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-			console.log(JSON.parse(response));
-		};
-	}
-
-	getPosts() {
-		this._post.getAllPosts().subscribe(data => {
-			this.postList = data.json();
-			console.log(this.postList)
-		});
-	}
-
-	emailLogin() {
-		this._auth.emailLogin().subscribe(response => {
-			let token = response.headers.get('x-auth-token');
-			if (token) {
-				localStorage.setItem('id_token', token);
-				this._auth.getCurrentUser().then(data => {
-					localStorage.setItem('user', JSON.stringify(data));
-					this.user = JSON.parse(localStorage.user)
-				})
-			}
-		});
-	}
-
-	emailSignup() {
-		this._auth.emailSignup().subscribe(d => console.log(d.json()));
-	}
-
-	fbLogin() {
-		this._auth.fbLogin().then(() => {
-			this._auth.getCurrentUser().then(data => {
-				localStorage.setItem('user', JSON.stringify(data));
-				this.user = JSON.parse(localStorage.user);
-			})
-		}).catch(err => console.log(err))
-	}
-
-	logout() {
-		this._auth.logout();
-	}
-
-	isLoggedIn() {
-		this._auth.isLoggedIn()
-			.then(d => console.log(d))
-			.catch(err => console.log(err));
-	}
-
-	getCurrentUser() {
-		this._auth.getCurrentUser()
-			.then(d => console.log(d))
-			.catch(err => console.log(err));
-	}
-
+     // not valid anymore => return to last valid position
+     this.map.panTo(lastValidCenter);
+ });
+  }
 
 }

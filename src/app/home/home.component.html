@@ -1,30 +1,7 @@
-<!-- <button (click)='get()'>GET</button> -->
-<button (click)='fbLogin()'>fbLogin</button>
-<button (click)='logout()'>logout</button>
-<button (click)='isLoggedIn()'>isLoggedIn</button>
-<button (click)='getCurrentUser()'>getCurrentUser</button>
-<button (click)='emailSignup()'>emailSignup</button>
-<button (click)='emailLogin()'>emailLogin</button>
-<button (click)='getPosts()'>getPosts</button>
-<hr>
-<input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
-<input [(ngModel)]="message" type="text">
-<button (click)="newPost()">upload Image</button>
 
-<div class="posts" *ngFor="let post of postList">
-	<span>{{post.description}}</span>
-	<button (click)="deletePost(post._id)">Delete post</button>
-	<img src="http://localhost:3000/{{post.image}}" alt="">
-	<div *ngIf="post.lastComment" class="last-comment">
-		<img src="{{post.lastComment.userPhoto}}" alt="">
-		<strong>{{post.lastComment.username}}</strong>
-		<p>{{post.lastComment.message}}</p>
-	</div>
-	<div *ngIf="!post.lastComment" class="last-comment">
-		No comments
-	</div>
-	<input #inp type="text" placeholder="comment">
-	<button (click)="postComment(inp.value, post._id)">post</button>
-	<button (click)='logAllComments(post._id)'>logAllComments</button>
-	<!-- <span>{{post._id}}</span> -->
+<div class="main">
+  <!-- <agm-map [latitude]="lat" [longitude]="lng" [minZoom]='minZoom' [zoom]='minZoom'>
+  </agm-map> -->
+  <div #gmap class="map"></div>
+
 </div>

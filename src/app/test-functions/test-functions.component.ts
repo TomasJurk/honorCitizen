@@ -6,11 +6,11 @@ import { AuthHttp } from 'angular2-jwt';
 import url from '../url';
 
 @Component({
-	selector: 'app-home',
-	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.scss']
+	selector: 'app-test-functions',
+	templateUrl: './test-functions.component.html',
+	styleUrls: ['./test-functions.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class TestFunctionsComponent implements OnInit {
 
 	public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
 
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	emailLogin() {
-		this._auth.emailLogin().subscribe(response => {
+		this._auth.emailLogin('email@email.com', 'password').subscribe(response => {
 			let token = response.headers.get('x-auth-token');
 			if (token) {
 				localStorage.setItem('id_token', token);
@@ -87,7 +87,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	emailSignup() {
-		this._auth.emailSignup().subscribe(d => console.log(d.json()));
+		this._auth.emailSignup('Name', 'email123@email.com', 'password', 'photourl...').subscribe(d => console.log(d.json()));
 	}
 
 	fbLogin() {
