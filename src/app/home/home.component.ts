@@ -4,7 +4,7 @@ import {
   Breakpoints,
   BreakpointState
 } from '@angular/cdk/layout';
-// import { } from '@types/googlemaps';
+import { } from '@types/googlemaps';
 
 @Component({
   selector: 'app-home',

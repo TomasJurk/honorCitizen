@@ -9,7 +9,7 @@ declare const FB: any;
   providedIn: 'root'
 })
 export class AuthService {
-  protected url = 'http://176.223.143.125:3000/api/';
+  protected url = 'http://176.223.143.125:3000/';
   private token: string;
   public user;
 
@@ -36,7 +36,7 @@ export class AuthService {
       photoURL: user.photoURL,
       password: user.password,
     };
-    return this.http.post(this.url + 'auth/emailSignup', userData);
+    return this.http.post(this.url + 'users/auth/emailSignup', userData);
   }
 
   emailSignup(fullName: string, email: string, password: string, photoURL: string) {
