@@ -1,6 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState
+} from '@angular/cdk/layout';
+// import { } from '@types/googlemaps';
 
-import { } from '@types/googlemaps';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,24 +14,25 @@ import { } from '@types/googlemaps';
 export class HomeComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
+  mapProp;
   title: 'My first AGM project';
   lat = 55.254299;
   lng = 23.886968;
-  minZoom = 6;
+  minZoom = 7;
 
-  constructor() {
-
-  }
+  constructor(public breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
-
-    const mapProp = {
+    if (this.breakpointObserver.isMatched('(max-width: 768px)')) {
+      this.minZoom = 6;
+    }
+    this.mapProp = {
       center: new google.maps.LatLng(this.lat, this.lng),
       zoom: this.minZoom,
       minZoom: this.minZoom,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, this.mapProp);
 
     this.limitPanning();
   }
@@ -49,5 +55,6 @@ export class HomeComponent implements OnInit {
       this.map.panTo(lastValidCenter);
     });
   }
+
 
 }
