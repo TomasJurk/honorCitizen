@@ -1,0 +1,15 @@
+.posts {
+	display: flex;
+	flex-flow: column nowrap;
+	width: 400px;
+	img {
+		object-fit: contain;
+	}
+	.last-comment {
+		img {
+			width: 40px;
+			border-radius: 50%;
+			margin-right: 10px;
+		}
+	}
+}

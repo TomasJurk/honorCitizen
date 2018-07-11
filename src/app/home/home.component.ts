@@ -14,7 +14,6 @@ export class HomeComponent implements OnInit {
   lng = 23.886968;
   minZoom = 6;
 
-
   constructor() {
 
   }

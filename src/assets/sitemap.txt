@@ -1,0 +1,26 @@
+postModel: 
+	- mediaPath
+	- desc
+	- user
+	- comments
+	- likes
+	- coordinates
+
+commentModel:
+	- message
+	- userID
+	- postID
+
+userModel: 
+	- name
+	- photo
+	- email
+	- pass
+	- facebook
+	- google?
+
+mongo pointers
+file upload
+post get
+
+loginututorial https://scotch.io/tutorials/easy-node-authentication-setup-and-local

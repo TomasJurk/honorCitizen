@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthHttp } from 'angular2-jwt';
+import url from '../url';
+
+declare const FB: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,10 +13,22 @@ export class AuthService {
   private token: string;
   public user;
 
-  constructor( private http: HttpClient) {
+  constructor(
+    private _http: AuthHttp,
+    private http: HttpClient
+  ) {
+    FB.init({
+      appId: 233355730725067,
+      status: false,
+      cookie: false,
+      xfbml: false,
+      version: 'v3.0'
+    });
     this.user = this.getLocalStorageUser();
   }
 
+// LUKO //
+// <<<<<<<<<<<
   emailSignUp(user) {
     const userData = {
       email: user.email,
@@ -22,6 +39,72 @@ export class AuthService {
     return this.http.post(this.url + 'auth/emailSignup', userData);
   }
 
+  emailSignup(fullName: string, email: string, password: string, photoURL: string) {
+    return this._http.post(`${url}/users/auth/emailSignup`,
+      {
+        fullName,
+        email,
+        password,
+        photoURL
+      });
+  }
+
+  emailLogin(email: string, password: string) {
+    return this._http.post(`${url}/users/auth/login`, { email, password });
+  }
+
+  fbLogin() {
+    return new Promise((resolve, reject) => {
+      FB.login(result => {
+        if (result.authResponse) {
+          const token = result.authResponse.accessToken;
+          return this._http.post(`${url}/users/auth/facebook`, { access_token: token })
+            .toPromise()
+            .then(response => {
+              const token = response.headers.get('x-auth-token');
+              if (token) {
+                localStorage.setItem('id_token', token);
+              }
+              resolve(response.json());
+            })
+            .catch(() => reject());
+        } else {
+          reject();
+        }
+      }, { scope: 'public_profile,email' });
+    });
+  }
+
+  logout() {
+    if (localStorage.id_token) {
+      localStorage.removeItem('id_token');
+      localStorage.removeItem('user');
+      console.log('logged out');
+    } else {
+      console.log('not logged in');
+    }
+  }
+
+  isLoggedIn() {
+    return new Promise((resolve, reject) => {
+      this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
+    });
+  }
+
+  getCurrentUser() {
+    return new Promise((resolve, reject) => {
+      return this._http.get(`${url}/users/auth/me`).toPromise().then(response => {
+        resolve(response.json());
+      }).catch(() => reject());
+    });
+  }
+
+// >>>>>>>>>>>
+
+
+
+
+
   emailLogIn(email, password) {
     const userData = {
       email: email,
@@ -29,9 +112,9 @@ export class AuthService {
     };
     this.http.post(this.url + 'auth/login', userData, {
       headers: new HttpHeaders()
-      .set('Content-Type', 'application/json'),
+        .set('Content-Type', 'application/json'),
       observe: 'response'
-    }).subscribe( res => {
+    }).subscribe(res => {
       this.token = res.headers.get('x-auth-token');
       return this.currentUser();
     });
@@ -43,14 +126,14 @@ export class AuthService {
     delete window.localStorage.user;
   }
   currentUser() {
-   return this.http.get(this.url + '/auth/me', {
+    return this.http.get(this.url + '/auth/me', {
       headers: new HttpHeaders()
-      .set('x-auth-token', this.token)
+        .set('x-auth-token', this.token)
     }).subscribe(res => {
-     this.user = res;
-     delete this.user.password;
-     this.user.token = this.token;
-     this.setLocalStorageUser();
+      this.user = res;
+      delete this.user.password;
+      this.user.token = this.token;
+      this.setLocalStorageUser();
     });
   }
 
