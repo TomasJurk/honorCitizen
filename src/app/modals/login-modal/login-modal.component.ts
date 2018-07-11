@@ -18,7 +18,7 @@ export class LoginModalComponent implements OnInit {
 
   signIn(email, password) {
     this._aS.emailLogIn(email, password);
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
 }

@@ -18,14 +18,14 @@ export class AuthGuard implements CanActivate {
 		return this.checkLogin();
 	}
 	checkLogin(): Promise<boolean> {
-		return new Promise((resolve, reject) => {
-			this._auth.isLoggedIn().then(() => {
-				resolve(true);
-			}).catch(() => {
-				this.router.navigate(['/home']);
-				// console.log('unauthorized')
-				resolve();
-			});
-		});
+		// return new Promise((resolve, reject) => {
+		// 	this._auth.isLoggedIn().then(() => {
+		// 		resolve(true);
+		// 	}).catch(() => {
+		// 		this.router.navigate(['/home']);
+		// 		// console.log('unauthorized')
+		// 		resolve();
+		// 	});
+		// });
 	}
 }

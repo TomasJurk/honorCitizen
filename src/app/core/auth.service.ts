@@ -9,7 +9,7 @@ declare const FB: any;
   providedIn: 'root'
 })
 export class AuthService {
-  protected url = 'http://176.223.143.125:3000/api/';
+  protected url = 'http://176.223.143.125:3000/';
   private token: string;
   public user;
 
@@ -29,25 +29,25 @@ export class AuthService {
 
 // LUKO //
 // <<<<<<<<<<<
-  // emailSignUp(user) {
-  //   const userData = {
-  //     email: user.email,
-  //     fullName: user.name,
-  //     photoURL: user.photoURL,
-  //     password: user.password,
-  //   };
-  //   return this.http.post(this.url + 'auth/emailSignup', userData);
-  // }
-
-  emailSignup(fullName: string, email: string, password: string, photoURL: string) {
-    return this._http.post(`${url}/users/auth/emailSignup`,
-      {
-        fullName,
-        email,
-        password,
-        photoURL
-      })
+  emailSignUp(user) {
+    const userData = {
+      email: user.email,
+      fullName: user.name,
+      photoURL: user.photoURL,
+      password: user.password,
+    };
+    return this.http.post(this.url + 'users/auth/emailSignup', userData);
   }
+
+  // emailSignup(fullName: string, email: string, password: string, photoURL: string) {
+  //   return this._http.post(`${url}/users/auth/emailSignup`,
+  //     {
+  //       fullName,
+  //       email,
+  //       password,
+  //       photoURL
+  //     })
+  // }
 
   // emailLogin(email: string, password: string) {
   //   return this._http.post(`${url}/users/auth/login`, { email, password })
@@ -110,10 +110,14 @@ export class AuthService {
       email: email,
       password: password
     };
-    this.http.post(this.url + 'auth/login', userData).subscribe(res => {
-      this.token = res.headers.get('x-auth-token');
-      return this.currentUser()
-    });
+    this.http.post(this.url + 'users/auth/login', userData).subscribe(res => {
+      // this.token = res.headers.get('x-auth-token');
+      console.log(res)
+      // return this.currentUser()
+    },
+    err => console.log(err),
+    () => this.currentUser()
+  );
   }
   logOut() {
     // need backend function logout remove token from server
@@ -122,15 +126,12 @@ export class AuthService {
     delete window.localStorage.user;
   }
   currentUser() {
-    return this.http.get(this.url + '/auth/me', {
-      headers: new HttpHeaders()
-        .set('x-auth-token', this.token)
-    }).subscribe(res => {
-      this.user = res;
-      delete this.user.password;
-      this.user.token = this.token;
-      this.setLocalStorageUser();
-    });
+    return this.http
+           .get(this.url + 'users/auth/me')
+           .subscribe(
+            res => this.user = res,
+            err => console.log(err)
+          );
   }
 
   setLocalStorageUser() {

@@ -69,7 +69,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
       config: {
         tokenGetter: tokenGetter,
         headerName: 'x-auth-token',
-        whitelistedDomains: ['http://176.223.143.125:3000/api/'],
+        throwNoTokenError: true,
+        whitelistedDomains: ['http://176.223.143.125:3000/users/auth/me', 'localhost:4200'],
         blacklistedRoutes: ['localhost:3000/auth/']
       }
     }),
