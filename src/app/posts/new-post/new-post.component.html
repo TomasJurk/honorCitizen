@@ -1,3 +1,9 @@
-<p>
-  new-post works!
-</p>
+<mat-card class="new-post-container">
+
+  <textarea placeholder="Meessage" [(ngModel)]="message"></textarea>
+
+  <input #fileInput type="file" (change)="getFileSize($event.target.files[0], fileInput)" name="photo" ng2FileSelect [uploader]="uploader"  accept="image/*"/>
+
+  <button (click)="newPost(fileInput.value)">SUBMIT</button>
+
+</mat-card>

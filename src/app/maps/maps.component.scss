@@ -1,0 +1,17 @@
+.main {
+  height: calc(100vh - 64px);
+  padding: 1em 20%;
+  @media screen and (max-width: 500px) {
+    padding: 0;
+
+  }
+}
+.map {
+  height: 80vh;
+  width: 100%;
+  @media screen and (max-width: 500px) {
+    height: 50vh;
+
+
+  }
+}
