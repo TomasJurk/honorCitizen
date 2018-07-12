@@ -48,7 +48,7 @@ export class NewUserModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef,
+    private dialogRef: MatDialogRef<NewUserModalComponent>,
     private router: Router,
     private _aS: AuthService
   ) { }
