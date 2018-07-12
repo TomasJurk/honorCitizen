@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthHttp } from 'angular2-jwt';
-import url from '../url';
 
 declare const FB: any;
 
@@ -10,12 +8,11 @@ declare const FB: any;
 })
 export class AuthService {
   protected url = 'http://176.223.143.125:3000/';
-  private token: string;
   public user;
 
   constructor(
-    private _http: AuthHttp,
-    private http: HttpClient
+    // private _http: AuthHttp,
+    private http: AuthHttp
   ) {
     FB.init({
       appId: 233355730725067,
@@ -27,9 +24,7 @@ export class AuthService {
     this.user = this.getLocalStorageUser();
   }
 
-// LUKO //
-// <<<<<<<<<<<
-  emailSignUp(user) {
+  emailSignup(user) {
     const userData = {
       email: user.email,
       fullName: user.name,
@@ -39,31 +34,23 @@ export class AuthService {
     return this.http.post(this.url + 'users/auth/emailSignup', userData);
   }
 
-  emailSignup(fullName: string, email: string, password: string, photoURL: string) {
-    return this._http.post(`${url}/users/auth/emailSignup`,
-      {
-        fullName,
-        email,
-        password,
-        photoURL
-      })
-  }
-
   emailLogin(email: string, password: string) {
-    return this._http.post(`${url}/users/auth/login`, { email, password })
+    return this.http.post(this.url + 'users/auth/login',
+      {email: email, password: password});
+      // { observe: 'response' }
   }
 
   fbLogin() {
     return new Promise((resolve, reject) => {
       FB.login(result => {
         if (result.authResponse) {
-          let token = result.authResponse.accessToken;
-          return this._http.post(`${url}/users/auth/facebook`, { access_token: token })
+          const token = result.authResponse.accessToken;
+          return this.http.post(`${this.url}users/auth/facebook`, { access_token: token })
             .toPromise()
             .then(response => {
-              let token = response.headers.get('x-auth-token');
-              if (token) {
-                localStorage.setItem('id_token', token);
+              const tok = response.headers.get('x-auth-token');
+              if (tok) {
+                localStorage.setItem('id_token', tok);
               }
               resolve(response.json());
             })
@@ -71,72 +58,43 @@ export class AuthService {
         } else {
           reject();
         }
-      }, { scope: 'public_profile,email' })
+      }, { scope: 'public_profile,email' });
     });
   }
 
   logout() {
-    if (localStorage.id_token) {
-      localStorage.removeItem('id_token');
-      localStorage.removeItem('user');
-      console.log('logged out');
-    } else {
-      console.log('not logged in')
+    if (!localStorage.id_token) {
+      console.log('No active users');
+      return;
     }
-  }
-
-  isLoggedIn() {
-    return new Promise((resolve, reject) => {
-      this.getCurrentUser().then(user => resolve(true)).catch(() => reject(false));
-    });
+    // need backend function logout remove token from server
+    this.user = '';
+    delete localStorage.user;
+    delete localStorage.id_token;
   }
 
   getCurrentUser() {
-    return new Promise((resolve, reject) => {
-      return this._http.get(`${url}/users/auth/me`).toPromise().then(response => {
-        resolve(response.json());
-      }).catch(() => reject());
-    });
+
+    if (window.localStorage.user) {
+      this.user = JSON.parse(window.localStorage.user);
+      return this.user;
+    }
+
+    this.http.get(this.url + 'users/auth/me').subscribe(
+      data => {
+        this.user = data.json();
+      },
+      error => console.log(error.statusText),
+      () => {
+        localStorage.setItem('user', JSON.stringify(this.user));
+        return this.user;
+      }
+    );
   }
 
-// >>>>>>>>>>>
-
-
-
-
-
-  emailLogIn(email, password) {
-    const userData = {
-      email: email,
-      password: password
-    };
-    this.http.post(this.url + 'auth/login', userData, {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/json'),
-      observe: 'response'
-    }).subscribe(res => {
-      this.token = res.headers.get('x-auth-token')
-      return this.currentUser()
-    });
+  isLoggedIn() {
+    return this.user ? true : false;
   }
-  logOut() {
-    // need backend function logout remove token from server
-    this.token = null;
-    this.user = null;
-    delete window.localStorage.user;
-  }
-  currentUser() {
-    return this.http.get(this.url + '/auth/me', {
-      headers: new HttpHeaders()
-        .set('x-auth-token', this.token)
-    }).subscribe(res => {
-      this.user = res;
-      delete this.user.password;
-      this.user.token = this.token;
-      this.setLocalStorageUser();
-    });
-  }
-
   setLocalStorageUser() {
     if (!window.localStorage.user) {
       window.localStorage.user = JSON.stringify(this.user);

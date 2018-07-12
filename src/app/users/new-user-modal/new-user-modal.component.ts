@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormControl } from '@angular/forms';
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
@@ -47,6 +48,7 @@ export class NewUserModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
+    private dialogRef: MatDialogRef<NewUserModalComponent>,
     private router: Router,
     private _aS: AuthService
   ) { }
@@ -90,13 +92,13 @@ export class NewUserModalComponent implements OnInit {
       if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
         this.formErrors[field] = '';
         const control = form.get(field);
+        if (this.userForm.value.password !== this.userForm.value.repeatPassword) {
+          this.formErrors['repeatPassword'] = this.validationMessage['repeatPassword']['mustBeSame'];
+          return;
+        }
         if (control && control.dirty && !control.valid) {
           const messages = this.validationMessage[field];
           if (control.errors) {
-           /*  if (this.userForm.value.password !== this.userForm.value.repeatPassword) {
-              this.formErrors['repeatPassword'] = this.validationMessage['repeatPassword']['mustBeSame'];
-              return;
-            } */
             for (const key in control.errors) {
               if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
                 this.formErrors[field] += `${(messages as {[key: string]: string})[key]} \n`;
@@ -110,9 +112,12 @@ export class NewUserModalComponent implements OnInit {
 
   signUp() {
     if (this.userForm.valid) {
-      this._aS.emailSignUp(this.userForm.value).subscribe(response => console.log(response));
+      this._aS.emailSignup(this.userForm.value).subscribe(response =>{
+        if (response.statusText = 'OK') {
+          this.dialogRef.close();
+        }
+      });
     }
-
   }
 
 }
