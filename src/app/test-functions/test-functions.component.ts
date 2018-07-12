@@ -74,7 +74,8 @@ export class TestFunctionsComponent implements OnInit {
 	}
 
 	emailLogin() {
-		this._auth.emailLogin('email@email.com', 'password').subscribe(response => {
+		this._auth.emailLogin('email123@email.com', 'password').subscribe(response => {
+			console.log(response)
 			let token = response.headers.get('x-auth-token');
 			if (token) {
 				localStorage.setItem('id_token', token);
@@ -87,7 +88,7 @@ export class TestFunctionsComponent implements OnInit {
 	}
 
 	emailSignup() {
-		this._auth.emailSignup('Name', 'email123@email.com', 'password', 'photourl...').subscribe(d => console.log(d.json()));
+		this._auth.emailSignup('Name', 'email123@email.com', 'password', 'photourl...').subscribe(d => console.log(d));
 	}
 
 	fbLogin() {
