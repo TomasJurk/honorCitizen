@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-<<<<<<< HEAD
 
-import {  } from '@types/googlemaps';
-=======
 import {
   BreakpointObserver,
   Breakpoints,
@@ -10,7 +7,6 @@ import {
 } from '@angular/cdk/layout';
 import { } from '@types/googlemaps';
 
->>>>>>> b81cdc89544c75b0f6207a523dab8cf4ddfb9467
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,13 +19,7 @@ export class HomeComponent implements OnInit {
   title: 'My first AGM project';
   lat = 55.254299;
   lng = 23.886968;
-<<<<<<< HEAD
-  minZoom = 6;
-
-  constructor() {
-=======
   minZoom = 7;
->>>>>>> b81cdc89544c75b0f6207a523dab8cf4ddfb9467
 
   constructor(public breakpointObserver: BreakpointObserver) { }
 

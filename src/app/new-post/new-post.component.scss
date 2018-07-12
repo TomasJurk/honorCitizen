@@ -1,0 +1,13 @@
+.new-post-container {
+  max-width: 90%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.new-post-container * {
+  width: 300px;
+  max-width: 100%;
+}
+

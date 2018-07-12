@@ -40,6 +40,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { PostsComponent } from './posts/posts.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     NewUserModalComponent,
     NavbarComponent,
     LoginModalComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,

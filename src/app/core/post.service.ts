@@ -8,27 +8,31 @@ import url from '../url';
 export class PostService {
 
   constructor(
-  	private http: AuthHttp
+    private http: AuthHttp
   ) { }
 
   createNewPost() {
-  	return this.http.post(`${url}/posts/post`,{})
+    return this.http.post(`${url}/posts/post`, {});
   }
 
   getAllPosts() {
-  	return this.http.get(`${url}/posts/post`)
+    return this.http.get(`${url}/posts/post`);
   }
 
-  postComment(body: any) {
-    return this.http.post(`${url}/comments/post`, body)
+  postComment(user, message, postID) {
+    return this.http.post(`${url}/comments/post`, {
+      user,
+      message,
+      postID
+    });
   }
 
   getAllComments(postid: string) {
-    return this.http.get(`${url}/comments/all/` + postid)
+    return this.http.get(`${url}/comments/all/` + postid);
   }
 
   deletePost(postid: string) {
-    return this.http.delete(`${url}/posts/post/` + postid)
+    return this.http.delete(`${url}/posts/post/` + postid);
   }
 
 }
