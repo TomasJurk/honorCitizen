@@ -1,18 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-import {
-  BreakpointObserver,
-  Breakpoints,
-  BreakpointState
-} from '@angular/cdk/layout';
-import { } from '@types/googlemaps';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import {  } from 'google-maps';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-maps',
+  templateUrl: './maps.component.html',
+  styleUrls: ['./maps.component.scss']
 })
-export class HomeComponent implements OnInit {
+
+export class MapsComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
   mapProp;
@@ -21,7 +17,7 @@ export class HomeComponent implements OnInit {
   lng = 23.886968;
   minZoom = 7;
 
-  constructor(public breakpointObserver: BreakpointObserver) { }
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
     if (this.breakpointObserver.isMatched('(max-width: 768px)')) {
@@ -56,6 +52,4 @@ export class HomeComponent implements OnInit {
       this.map.panTo(lastValidCenter);
     });
   }
-
-
 }

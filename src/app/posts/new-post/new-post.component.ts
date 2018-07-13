@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../core/auth.service';
-import { PostService } from '../core/post.service';
+import { AuthService } from '../../core/auth.service';
+import { PostService } from '../post.service';
 import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file-upload/ng2-file-upload';
-import url from '../url';
+import url from '../../url';
 
 @Component({
   selector: 'app-new-post',
@@ -31,6 +31,9 @@ export class NewPostComponent implements OnInit {
 
   getFileSize(file, el) {
     this.size = file.size;
+    // svg neskaito gal darom tik jpg ir png ar kokius ten tik fotikai ir tel formatus palaiko
+    // const onlyfiles = new RegExp(/([a-zA-Z0-9\s_\\.\-\(\):])+(.jpg|.png)$/i);
+    // onlyfiles.test(file.name);
     if (file.type.split('/')[0] !== 'image') {
       el.value = null;
       console.log('incorrect file type');

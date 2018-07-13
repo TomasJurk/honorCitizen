@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
-import { PostService } from '../core/post.service';
+import { PostService } from '../posts/post.service';
 import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file-upload/ng2-file-upload';
-import { AuthHttp } from 'angular2-jwt';
 import url from '../url';
 
 @Component({
@@ -25,7 +24,7 @@ export class TestFunctionsComponent implements OnInit {
   ngOnInit() {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     if (localStorage.user) {
-      this.user = JSON.parse(localStorage.user)
+      this.user = JSON.parse(localStorage.user);
     }
   }
 
@@ -34,14 +33,14 @@ export class TestFunctionsComponent implements OnInit {
   }
 
   logAllComments(id) {
-    this._post.getAllComments(id).subscribe(data => console.log(data.json()))
+    this._post.getAllComments(id).subscribe(data => console.log(data.json()));
   }
 
   postComment(message, postID) {
     const userID = JSON.parse(localStorage.user)._id;
     const userPhoto = this.user['photoURL'];
     const username = this.user['fullName'];
-    this._post.postComment(message, postID, userID).subscribe(res => console.log(res))
+    this._post.postComment({message, postID, userID}).subscribe(res => console.log(res));
   }
 
   newPost() {
@@ -53,7 +52,7 @@ export class TestFunctionsComponent implements OnInit {
     this.uploader.onBuildItemForm = (item, form) => {
       form.append('user', id);
       form.append('description', desc);
-    }
+    };
     this.uploader.setOptions(options);
     this.uploader.uploadAll();
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -64,7 +63,7 @@ export class TestFunctionsComponent implements OnInit {
   getPosts() {
     this._post.getAllPosts().subscribe(data => {
       this.postList = data.json();
-      console.log(this.postList)
+      console.log(this.postList);
     });
   }
 
@@ -72,33 +71,32 @@ export class TestFunctionsComponent implements OnInit {
     this._auth.emailLogin('email123@email.com', 'password');
   }
 
-  emailSignup() {
-    this._auth.emailSignup('Name', 'email123@email.com', 'password', 'photourl...').subscribe(d => console.log(d));
-  }
-
   fbLogin() {
-    this._auth.fbLogin().then(() => {
-      this._auth.getCurrentUser().then(data => {
-        localStorage.setItem('user', JSON.stringify(data));
-        this.user = JSON.parse(localStorage.user);
-      })
-    }).catch(err => console.log(err))
-  }
-
-  logout() {
-    this._auth.logOut();
-  }
-
-  isLoggedIn() {
-    this._auth.isLoggedIn()
-      .then(d => console.log(d))
-      .catch(err => console.log(err));
+    this._auth.fbLogin().then(response => console.log(response));
   }
 
   getCurrentUser() {
     this._auth.getCurrentUser()
       .then(d => console.log(d))
       .catch(err => console.log(err));
+  }
+
+  emailSignup() {
+    const userData = {
+      email: 'email123@email.com',
+      fullName: 'Name',
+      photoURL:  '',
+      password: 'password',
+    };
+    this._auth.emailSignup(userData).subscribe(d => console.log(d.json()));
+  }
+
+  logout() {
+    this._auth.logout();
+  }
+
+  isLoggedIn() {
+    console.log(this._auth.isLoggedIn());
   }
 
 
