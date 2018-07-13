@@ -30,11 +30,11 @@ export class NewPostComponent implements OnInit {
   }
 
   getFileSize(file, el) {
-    this.size = file.size;
-    // svg neskaito gal darom tik jpg ir png ar kokius ten tik fotikai ir tel formatus palaiko
-    // const onlyfiles = new RegExp(/([a-zA-Z0-9\s_\\.\-\(\):])+(.jpg|.png)$/i);
-    // onlyfiles.test(file.name);
-    if (file.type.split('/')[0] !== 'image') {
+    const type = file.type.split('/')[1];
+    if (type === 'jpg' || type === 'jpeg' || type === 'png') {
+      this.size = file.size;
+      console.log('correct');
+    } else {
       el.value = null;
       console.log('incorrect file type');
     }
