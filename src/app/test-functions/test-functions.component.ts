@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../core/auth.service';
 import { PostService } from '../posts/post.service';
+import { AuthHttp } from 'angular2-jwt';
 import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file-upload/ng2-file-upload';
 import url from '../url';
 
@@ -13,8 +14,10 @@ export class TestFunctionsComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
 
-  constructor(private _auth: AuthService,
-    private _post: PostService) { }
+  constructor(
+    private _auth: AuthService,
+    private _post: PostService,
+    private http: AuthHttp) { }
 
   user: object;
   message: string;
@@ -26,6 +29,11 @@ export class TestFunctionsComponent implements OnInit {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
     }
+  }
+
+  like(id) {
+    console.log('liked')
+    this.http.get(`${url}/posts/post/${id}`).subscribe(data => console.log(data.json()))
   }
 
   deletePost(id) {
@@ -88,7 +96,7 @@ export class TestFunctionsComponent implements OnInit {
       photoURL:  '',
       password: 'password',
     };
-    this._auth.emailSignup(userData).subscribe(d => console.log(d.json()));
+    this._auth.emailSignup(userData).subscribe(d => console.log(d));
   }
 
   logout() {

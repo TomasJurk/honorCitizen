@@ -15,7 +15,8 @@
 <div class="posts" *ngFor="let post of postList">
 	<span>{{post.description}}</span>
 	<button (click)="deletePost(post._id)">Delete post</button>
-	<img src="http://176.223.143.125:3000/{{post.image}}" alt="">
+	<img src="http://localhost:3000/{{post.image}}" alt="">
+	<button (click)="like(post._id)">like</button>
 	<div *ngIf="post.lastComment" class="last-comment">
 		<img src="{{post.lastComment.userPhoto}}" alt="">
 		<strong>{{post.lastComment.username}}</strong>

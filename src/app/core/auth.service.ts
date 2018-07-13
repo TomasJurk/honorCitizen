@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
-
+import url from '../url'; // delete later
 declare const FB: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  protected url = 'http://176.223.143.125:3000';
+  protected url = url; // change to IP later
   public user;
 
   constructor(

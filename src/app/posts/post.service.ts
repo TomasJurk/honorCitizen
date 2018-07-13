@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
+import url from '../url'; // delete later
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class PostService {
-  protected url = 'http://176.223.143.125:3000';
+  protected url = url; // change to IP later
   constructor(
     private http: AuthHttp
   ) { }
