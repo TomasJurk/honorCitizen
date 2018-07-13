@@ -3,7 +3,7 @@
     <div *ngFor="let post of postList" class="col-sm-4">
       <mat-card class="single-post">
         <h2>{{post.user.fullName}}</h2>
-        <img src="http://176.223.143.125:3000/{{post.thumbnail}}" alt="Post picture">
+        <img src="http://176.223.143.125:3000/{{post.thumbnail}}" alt="Post picture" (click)="openPostDialog(post)">
         <p>{{post.description}}</p>
       </mat-card>
     </div>

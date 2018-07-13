@@ -38,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PostsComponent } from './posts/posts.component';
 import { MapsComponent } from './maps/maps.component';
+import { PostModalComponent } from './posts/post-modal/post-modal.component';
 
 
 export function getAuthHttp(http: Http) {
@@ -64,6 +65,7 @@ export function getAuthHttp(http: Http) {
     LoginModalComponent,
     PostsComponent,
     MapsComponent,
+    PostModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,7 +95,8 @@ export function getAuthHttp(http: Http) {
   ],
   entryComponents: [
     NewUserModalComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    PostModalComponent
   ],
   bootstrap: [AppComponent]
 })

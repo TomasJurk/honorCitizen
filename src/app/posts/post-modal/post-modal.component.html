@@ -1,0 +1,13 @@
+<h2>
+  {{data.name}}
+</h2>
+<img class="modal-image" src="http://176.223.143.125:3000/{{data.img}}" alt="Post picture">
+<p>
+  {{data.descr}}
+</p>
+<h3>Comments:</h3>
+<div class="comments-container">
+  <p *ngFor="let comment of comments">
+    {{comment.message}}
+  </p>
+</div>
