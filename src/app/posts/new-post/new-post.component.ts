@@ -39,7 +39,9 @@ export class NewPostComponent implements OnInit {
       console.log('incorrect file type');
     }
   }
-
+  getCordinates(obj){
+    console.log(obj);
+  }
   newPost(el) {
     if (this.size >= 6000000) {
       console.log('too big');

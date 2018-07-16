@@ -38,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PostsComponent } from './posts/posts.component';
 import { MapsComponent } from './maps/maps.component';
+import { SelectPlaceComponent } from './maps/select-place/select-place.component';
 
 
 export function getAuthHttp(http: Http) {
@@ -64,6 +65,7 @@ export function getAuthHttp(http: Http) {
     LoginModalComponent,
     PostsComponent,
     MapsComponent,
+    SelectPlaceComponent,
   ],
   imports: [
     BrowserModule,
