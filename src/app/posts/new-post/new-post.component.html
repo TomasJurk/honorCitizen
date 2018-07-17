@@ -1,10 +1,18 @@
-<mat-card class="new-post-container">
+<div class="body-container">
 
-  <textarea placeholder="Meessage" [(ngModel)]="message"></textarea>
+  <div class="user-info-container">
+    <img src="https://i.pinimg.com/236x/7e/bc/88/7ebc888a34305274628610bf02137aaa--profile-pictures-deadpool.jpg" alt="User picture">
+    <h5>Username</h5>
+  </div>
 
-  <input #fileInput type="file" (change)="getFileSize($event.target.files[0], fileInput)" name="photo" ng2FileSelect [uploader]="uploader"  accept="image/*"/>
+  <mat-card class="new-post-container">
+    <div class="post-fields">
+      <textarea placeholder="Meessage" [(ngModel)]="message"></textarea>
+      <input #fileInput type="file" (change)="getFileSize($event.target.files[0], fileInput)" name="photo" ng2FileSelect [uploader]="uploader"  accept="image/*"/>
 
-  <button (click)="newPost(fileInput.value)">SUBMIT</button>
-  <app-select-place (sendCoordinates)="getCordinates($event)" class="map-container"></app-select-place>
+    </div>
+    <app-select-place (sendCoordinates)="getCordinates($event)" class="map-container"></app-select-place>
+    <button (click)="newPost(fileInput.value)">Įkelk</button>
+  </mat-card>
 
-</mat-card>
+</div>
