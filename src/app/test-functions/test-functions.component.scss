@@ -2,6 +2,8 @@
 	display: flex;
 	flex-flow: column nowrap;
 	width: 400px;
+	margin: 10px;
+	border: 1px solid #000;
 	img {
 		object-fit: contain;
 	}

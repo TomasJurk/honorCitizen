@@ -23,12 +23,17 @@ export class TestFunctionsComponent implements OnInit {
   message: string;
   postList: any[];
   size: any;
+  allComments: any[];
 
   ngOnInit() {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
     }
+  }
+
+  report(id) {
+  	this.http.post(`${url}/posts/post/${id}`, {}).subscribe(data => console.log(data.json()));
   }
 
   like(id) {
@@ -41,7 +46,10 @@ export class TestFunctionsComponent implements OnInit {
   }
 
   logAllComments(id) {
-    this._post.getAllComments(id).subscribe(data => console.log(data.json()));
+    this._post.getAllComments(id).subscribe(data => {
+    	console.log(data.json());
+    	this.allComments = data.json();
+    });
   }
 
   postComment(message, postID) {
