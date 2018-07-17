@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, EventEmitter, Output  } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-
+import { HttpClient } from '@angular/common/http';
 import {  } from 'google-maps';
 
 @Component({
@@ -17,6 +17,7 @@ export class SelectPlaceComponent implements OnInit {
   lat = 55.254299;
   lng = 23.886968;
   cordinates: { latitude: number, longitude: number};
+  cords;
   minZoom = 6;
   place;
   autocomplete;
@@ -26,7 +27,9 @@ export class SelectPlaceComponent implements OnInit {
 
   @Output() sendCoordinates = new EventEmitter<object>();
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver,
+              private http: HttpClient
+  ) {
     this.screenBreak();
    }
 
@@ -43,6 +46,7 @@ export class SelectPlaceComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
       streetViewControl: false,
+      styles: this.http.get('./assets/maps/styles.json')
 
     };
 
@@ -73,7 +77,7 @@ export class SelectPlaceComponent implements OnInit {
       if (!this.place.geometry) {
         // User entered the name of a Place that was not suggested and
         // pressed the Enter key, or the Place Details request failed.
-        window.alert("Nerasta vieta '" + this.place.name + "'");
+        window.alert('Nerasta vieta ' + this.place.name );
         return;
       }
       if (this.selectMark && this.selectMark.setMap) {
@@ -89,70 +93,64 @@ export class SelectPlaceComponent implements OnInit {
       }
 
       this.selectMark.setMap(this.map2);
-      if (!this.draggable) {
         this.selectMark.setVisible(true);
+        this.markerShow = true;
+      if (!this.draggable) {
         this.selectMark.setPosition(new google.maps.LatLng(this.map2.getCenter().lat(), this.map2.getCenter().lng()));
-
+        this.emitCords();
           this.map2.addListener('center_changed', () => {
             if (this.selectMark && this.selectMark.setMap) {
               this.selectMark.setPosition(new google.maps.LatLng(this.map2.getCenter().lat(), this.map2.getCenter().lng()));
-             let cords = {
-              latitude: this.selectMark.getPosition().lat(),
-              longitude: this.selectMark.getPosition().lng()
-             };
-             this.sendCoordinates.emit(cords);
+              this.emitCords();
             }
           });
       } else {
         this.markerShow = true;
         this.selectMark.setVisible(true);
         this.selectMark.setPosition(this.place.geometry.location);
+        this.emitCords();
         this.selectMark.addListener('dragend', () => {
           this.map2.setCenter(this.selectMark.getPosition());
-          this.map2.setZoom(17);
-          let cords = {
-            latitude: this.selectMark.getPosition().lat(),
-            longitude: this.selectMark.getPosition().lng(),
-          };
-          this.sendCoordinates.emit(cords);
+          // this.map2.setZoom(17);
+          this.emitCords();
         });
       }
 
     });
   }
-  screenBreak(){
+  screenBreak() {
     if (this.breakpointObserver.isMatched('(max-width: 768px)')) {
       this.draggable = false;
      }
   }
   addMarker() {
-    if(!this.markerShow) {
+    if (!this.markerShow) {
       this.creatMarker();
     }
   }
   creatMarker() {
+    this.selectMark.setMap(null);
+
     if (!this.cordinates) {
       this.markerShow = true;
-      let cords = {
+      this.cords = {
         latitude: this.map2.getCenter().lat(),
         longitude: this.map2.getCenter().lng()
-        }
-      } else {
-        let  cords = this.cordinates;
+        };
       }
+      this.cords = this.cordinates;
+
     if (this.selectMark && this.selectMark.setMap) {
       this.markerShow = false;
-      this.selectMark.setMap(null);
-      this.input.nativeElement.value = '';
     }
     this.selectMark = new google.maps.Marker({
-      position: new google.maps.LatLng(cords.latitude, cords.longitude),
+      position: new google.maps.LatLng(this.cords.latitude, this.cords.longitude),
       map: this.map2,
       draggable: this.draggable,
 
     });
-
-    this.map2.setCenter(new google.maps.LatLng(cords.latitude, cords.longitude));
+    this.emitCords();
+    this.map2.setCenter(new google.maps.LatLng(this.cords.latitude, this.cords.longitude));
     // this.map2.setZoom(10);
     if (!this.draggable) {
       this.markerShow = true;
@@ -160,11 +158,7 @@ export class SelectPlaceComponent implements OnInit {
       this.map2.addListener('center_changed', () => {
         if (this.selectMark && this.selectMark.setMap) {
             this.selectMark.setPosition(new google.maps.LatLng(this.map2.getCenter().lat(), this.map2.getCenter().lng()));
-            let cords = {
-              latitude: this.selectMark.getPosition().lat(),
-              longitude: this.selectMark.getPosition().lng(),
-            }
-            this.sendCoordinates.emit(cords);
+            this.emitCords();
         }
       });
     } else {
@@ -172,12 +166,15 @@ export class SelectPlaceComponent implements OnInit {
         this.selectMark.addListener('dragend', () => {
           this.map2.setCenter(this.selectMark.getPosition());
           // this.map2.setZoom(17);
-          let cords = {
-            latitude: this.selectMark.getPosition().lat(),
-            longitude: this.selectMark.getPosition().lng(),
-          };
-          this.sendCoordinates.emit(cords);
+          this.emitCords();
         });
     }
+  }
+  emitCords() {
+    this.cords = {
+      latitude: this.selectMark.getPosition().lat(),
+      longitude: this.selectMark.getPosition().lng()
+     };
+     this.sendCoordinates.emit(this.cords);
   }
 }

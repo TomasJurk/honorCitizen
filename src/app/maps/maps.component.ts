@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { HttpClient } from '@angular/common/http';
 import {  } from 'google-maps';
 
 @Component({
@@ -18,6 +19,7 @@ export class MapsComponent implements OnInit {
   minZoom = 7;
   markers = [];
   infowindows = [];
+  styles;
 
   marker;
   // cusom icon
@@ -25,7 +27,11 @@ export class MapsComponent implements OnInit {
   iconProp;
   public myoverlay;
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver,
+              private http: HttpClient
+  ) {
+    this.http.get('/assets/map/styles.json')
+              .subscribe( response => this.styles = response);
     this.zoomBreakpoints();
   }
 
@@ -62,10 +68,11 @@ export class MapsComponent implements OnInit {
  initMap() {
 
     this.mapProp = {
+      styles: this.styles,
       center: new google.maps.LatLng(this.lat, this.lng),
       zoom: this.minZoom,
       minZoom: this.minZoom,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      // mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
     this.map = new google.maps.Map(this.gmapElement.nativeElement, this.mapProp);

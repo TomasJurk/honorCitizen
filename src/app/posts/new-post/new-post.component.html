@@ -4,7 +4,7 @@
 
   <input #fileInput type="file" (change)="getFileSize($event.target.files[0], fileInput)" name="photo" ng2FileSelect [uploader]="uploader"  accept="image/*"/>
 
-  <app-select-place (sendCoordinates)="getCordinates($event)" class="map-container"></app-select-place>
   <button (click)="newPost(fileInput.value)">SUBMIT</button>
+  <app-select-place (sendCoordinates)="getCordinates($event)" class="map-container"></app-select-place>
 
 </mat-card>

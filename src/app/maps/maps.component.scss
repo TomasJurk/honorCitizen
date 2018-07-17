@@ -1,13 +1,5 @@
-.main {
-  height: calc(100vh - 64px);
-  padding: 1em 20%;
-  @media screen and (max-width: 500px) {
-    padding: 0;
-
-  }
-}
 .map {
-  height: 80vh;
+  height: 70vh;
   width: 100%;
   @media screen and (max-width: 500px) {
     height: 50vh;
@@ -31,6 +23,7 @@ keyframes pulse{
         -webkit-transform: scale(0.7);
     }
 }
+
 @keyframes pulse{
 	to {
 		transform: scale(0.7);
