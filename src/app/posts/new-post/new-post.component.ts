@@ -15,6 +15,7 @@ export class NewPostComponent implements OnInit {
 
   user: object;
   message: string;
+  cordinates: {latitude: number, longitude: number};
   size: any;
 
   constructor(
@@ -39,7 +40,9 @@ export class NewPostComponent implements OnInit {
       console.log('incorrect file type');
     }
   }
-
+  getCordinates(obj) {
+    this.cordinates = obj;
+  }
   newPost(el) {
     if (this.size >= 6000000) {
       console.log('too big');
@@ -56,8 +59,8 @@ export class NewPostComponent implements OnInit {
       this.uploader.onBuildItemForm = (item, form) => {
         form.append('user', id);
         form.append('description', this.message);
-        form.append('longitude', 55.55555);
-        form.append('latitude', 55.55555);
+        form.append('longitude', this.cordinates.longitude);
+        form.append('latitude', this.cordinates.latitude);
       };
       this.uploader.setOptions(options);
       this.uploader.uploadAll();
