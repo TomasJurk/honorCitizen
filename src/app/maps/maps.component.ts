@@ -19,14 +19,6 @@ export class MapsComponent implements OnInit {
   minZoom = 7;
   markers = [];
   infowindows = [];
-<<<<<<< HEAD
-  marker;
-
-  constructor(private breakpointObserver: BreakpointObserver) {
-    this.zoomBreakpoints();
-    this.mapProperties();
-
-=======
   styles;
 
   marker;
@@ -41,7 +33,6 @@ export class MapsComponent implements OnInit {
     this.http.get('/assets/map/styles.json')
               .subscribe( response => this.styles = response);
     this.zoomBreakpoints();
->>>>>>> PJ
   }
 
   ngOnInit() {
@@ -74,21 +65,6 @@ export class MapsComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-  mapProperties() {
-   return this.mapProp = {
-      center: new google.maps.LatLng(this.lat, this.lng),
-      zoom: this.minZoom,
-      minZoom: this.minZoom,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-  }
-
-  initMap() {
-    this.map = new google.maps.Map(this.gmapElement.nativeElement, this.mapProp);
-
-    this.dropMarks();
-=======
  initMap() {
 
     this.mapProp = {
@@ -116,29 +92,18 @@ export class MapsComponent implements OnInit {
            this.getPanes().markerLayer.id = 'markerLayer';
        };
        this.myoverlay.setMap(this.map);
->>>>>>> PJ
     setInterval( () => {
       this.markers.splice(3).forEach( a => a.setMap(null) );
       this.infowindows = this.infowindows.slice(3);
       this.dropMarks(3);
     }, 10000);
-<<<<<<< HEAD
-
-  }
-  // marker with drop animation and more
-=======
   }
 
->>>>>>> PJ
   dropMarks(i: number = 0) {
     for (i; i < demoPins.length; i++) {
       this.addMarkerWithTimeout(demoPins[i], i * 300, i);
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> PJ
   addMarkerWithTimeout(data, timeout, index) {
     const contentString = `<div>${data.msg}</div>`;
     setTimeout( () => {
@@ -151,14 +116,10 @@ export class MapsComponent implements OnInit {
       const mark = new google.maps.Marker({
         position: new google.maps.LatLng(data.coordinates.lat, data.coordinates.lng),
         map: this.map,
-<<<<<<< HEAD
-        animation: google.maps.Animation.BOUNCE
-=======
         icon: this.iconProp,
         // must use optimized false for CSS
         optimized: false,
             // animation: google.maps.Animation.BOUNCE
->>>>>>> PJ
       });
       mark.addListener('click', () => {
         this.infowindows[index].open(this.map, this.markers[index]);
@@ -166,12 +127,6 @@ export class MapsComponent implements OnInit {
       this.markers.push(mark);
     }, timeout);
   }
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> PJ
 }
 const demoPins = [
   { msg: 'test',
