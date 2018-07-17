@@ -68,7 +68,7 @@ export class TestFunctionsComponent implements OnInit {
   }
 
   emailLogin() {
-    this._auth.emailLogin('email123@email.com', 'password');
+    this._auth.emailLogin('email123@email.com', 'password', () => {});
   }
 
   fbLogin() {

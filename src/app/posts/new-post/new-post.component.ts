@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 import { PostService } from '../post.service';
 import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file-upload/ng2-file-upload';
+import { LoginModalComponent } from '../../users/login-modal/login-modal.component';
 import url from '../../url';
 
 @Component({
@@ -19,15 +22,30 @@ export class NewPostComponent implements OnInit {
   size: any;
 
   constructor(
+    public loginDialog: MatDialog,
+    public router: Router,
     private _aS: AuthService,
     private _pS: PostService
   ) { }
 
   ngOnInit() {
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
+    } else {
+      this.router.navigate(['/']);
+      setTimeout(() => {
+        this.openLoginDialog();
+      }, 0);
     }
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+  }
+
+  openLoginDialog() {
+    this.loginDialog.open(LoginModalComponent, {
+      data: {
+        readme: 'something if needed'
+      }
+    });
   }
 
   getFileSize(file, el) {

@@ -3,7 +3,6 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormControl } from '@angular/forms';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 
 type UserFields = 'name' | 'email' | 'password' | 'repeatPassword';
@@ -41,7 +40,8 @@ export class NewUserModalComponent implements OnInit {
     },
     'repeatPassword': {
       'required': 'Repeat password is required',
-      'mustBeSame': 'Repeat password must be same as password'
+      'mustBeSame': 'Repeat password must be same as password',
+      'pattern': 'veikia'
     }
   };
 
@@ -49,7 +49,6 @@ export class NewUserModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<NewUserModalComponent>,
-    private router: Router,
     private _aS: AuthService
   ) { }
 
@@ -75,7 +74,7 @@ export class NewUserModalComponent implements OnInit {
           Validators.required
         ]],
         'repeatPassword': ['', [
-          Validators.required,
+          Validators.required
         ]]
       }
     );
@@ -111,9 +110,13 @@ export class NewUserModalComponent implements OnInit {
 
   signUp() {
     if (this.userForm.valid) {
-      this._aS.emailSignup(this.userForm.value).subscribe(response =>{
+      this._aS.emailSignup(this.userForm.value).subscribe(response => {
         if (response.statusText = 'OK') {
-          this.dialogRef.close();
+          this._aS.emailLogin(this.userForm.value.email, this.userForm.value.password, () => {
+            this.dialogRef.close();
+          });
+        } else {
+          console.log(response.statusText);
         }
       });
     }

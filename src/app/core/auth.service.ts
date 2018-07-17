@@ -35,7 +35,7 @@ export class AuthService {
     return this.http.post(this.url + '/users/auth/emailSignup', userData);
   }
 
-  emailLogin(email: string, password: string) {
+  emailLogin(email: string, password: string, cb) {
     return this.http.post(this.url + '/users/auth/login',
       { email, password }).subscribe(
         response => {
@@ -45,10 +45,14 @@ export class AuthService {
             this.getCurrentUser().then(data => {
               localStorage.setItem('user', JSON.stringify(data));
               this.user = JSON.parse(localStorage.user);
+              cb(true);
             });
           }
         },
-        error => console.log(error),
+        error => {
+          console.log(error);
+          cb(false);
+        },
     );
   }
 
