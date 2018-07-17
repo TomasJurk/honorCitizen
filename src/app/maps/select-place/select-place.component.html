@@ -1,0 +1,16 @@
+<div class="pac-card" id="pac-card">
+  <div>
+    <button (click)="getLocation()">Get current location</button>
+  </div>
+  <div id="pac-container">
+    <input #acInput type="text"
+        placeholder="Enter a location">
+  </div>
+</div>
+<div #selectMap class="selectContainer" (click)="addMarker()">
+</div>
+<div id="infowindow-content">
+  <img src="" width="16" height="16" id="place-icon">
+  <span id="place-name"  class="title"></span><br>
+  <span id="place-address"></span>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { HttpClient } from '@angular/common/http';
 import {  } from 'google-maps';
 
 @Component({
@@ -18,12 +19,29 @@ export class MapsComponent implements OnInit {
   minZoom = 7;
   markers = [];
   infowindows = [];
+<<<<<<< HEAD
   marker;
 
   constructor(private breakpointObserver: BreakpointObserver) {
     this.zoomBreakpoints();
     this.mapProperties();
 
+=======
+  styles;
+
+  marker;
+  // cusom icon
+  iconUrl = './assets/map/mark.svg';
+  iconProp;
+  public myoverlay;
+
+  constructor(private breakpointObserver: BreakpointObserver,
+              private http: HttpClient
+  ) {
+    this.http.get('/assets/map/styles.json')
+              .subscribe( response => this.styles = response);
+    this.zoomBreakpoints();
+>>>>>>> PJ
   }
 
   ngOnInit() {
@@ -56,6 +74,7 @@ export class MapsComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   mapProperties() {
    return this.mapProp = {
       center: new google.maps.LatLng(this.lat, this.lng),
@@ -69,19 +88,57 @@ export class MapsComponent implements OnInit {
     this.map = new google.maps.Map(this.gmapElement.nativeElement, this.mapProp);
 
     this.dropMarks();
+=======
+ initMap() {
+
+    this.mapProp = {
+      styles: this.styles,
+      center: new google.maps.LatLng(this.lat, this.lng),
+      zoom: this.minZoom,
+      minZoom: this.minZoom,
+      // mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, this.mapProp);
+
+    this.iconProp = {
+      url: this.iconUrl,
+      size: new google.maps.Size(100, 60),
+      scaledSize: new google.maps.Size(70, 60),
+      origin: new google.maps.Point(-15, 0)
+    };
+
+    this.dropMarks();
+
+    this.myoverlay = new google.maps.OverlayView();
+      this.myoverlay.draw = function () {
+           // add an id to the layer that includes all the markers so you can use it in CSS
+           this.getPanes().markerLayer.id = 'markerLayer';
+       };
+       this.myoverlay.setMap(this.map);
+>>>>>>> PJ
     setInterval( () => {
       this.markers.splice(3).forEach( a => a.setMap(null) );
       this.infowindows = this.infowindows.slice(3);
       this.dropMarks(3);
     }, 10000);
+<<<<<<< HEAD
 
   }
   // marker with drop animation and more
+=======
+  }
+
+>>>>>>> PJ
   dropMarks(i: number = 0) {
     for (i; i < demoPins.length; i++) {
       this.addMarkerWithTimeout(demoPins[i], i * 300, i);
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> PJ
   addMarkerWithTimeout(data, timeout, index) {
     const contentString = `<div>${data.msg}</div>`;
     setTimeout( () => {
@@ -94,7 +151,14 @@ export class MapsComponent implements OnInit {
       const mark = new google.maps.Marker({
         position: new google.maps.LatLng(data.coordinates.lat, data.coordinates.lng),
         map: this.map,
+<<<<<<< HEAD
         animation: google.maps.Animation.BOUNCE
+=======
+        icon: this.iconProp,
+        // must use optimized false for CSS
+        optimized: false,
+            // animation: google.maps.Animation.BOUNCE
+>>>>>>> PJ
       });
       mark.addListener('click', () => {
         this.infowindows[index].open(this.map, this.markers[index]);
@@ -102,6 +166,12 @@ export class MapsComponent implements OnInit {
       this.markers.push(mark);
     }, timeout);
   }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> PJ
 }
 const demoPins = [
   { msg: 'test',
