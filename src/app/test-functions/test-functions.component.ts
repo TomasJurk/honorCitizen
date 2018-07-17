@@ -32,6 +32,10 @@ export class TestFunctionsComponent implements OnInit {
     }
   }
 
+  deleteComment(id) {
+  	this.http.delete(`${url}/comments/${id}`).subscribe(data => console.log(data.json()));
+  }
+
   report(id) {
   	this.http.post(`${url}/posts/post/${id}`, {}).subscribe(data => console.log(data.json()));
   }
