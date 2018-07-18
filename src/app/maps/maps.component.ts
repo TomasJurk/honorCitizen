@@ -19,7 +19,7 @@ export class MapsComponent implements OnInit {
   minZoom = 7;
   markers = [];
   infowindows = [];
-  styles;
+  styles  ;
 
   marker;
   // cusom icon
@@ -30,14 +30,21 @@ export class MapsComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver,
               private http: HttpClient
   ) {
-    this.http.get('/assets/map/styles.json')
-              .subscribe( response => this.styles = response);
-    this.zoomBreakpoints();
+
   }
 
   ngOnInit() {
-    this.initMap();
-    this.limitPanning();
+    this.zoomBreakpoints();
+    this.http.get('./assets/map/styles.json')
+    .subscribe( response => {
+                  this.styles = response;
+                },
+                error => console.log(error),
+                () => {
+                  this.initMap();
+                  this.limitPanning();
+                }
+              );
   }
 
   limitPanning() {
@@ -68,10 +75,10 @@ export class MapsComponent implements OnInit {
  initMap() {
 
     this.mapProp = {
-      styles: this.styles,
       center: new google.maps.LatLng(this.lat, this.lng),
       zoom: this.minZoom,
       minZoom: this.minZoom,
+      styles: this.styles,
       // mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
