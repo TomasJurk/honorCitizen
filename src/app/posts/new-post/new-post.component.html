@@ -7,8 +7,27 @@
 
   <mat-card class="new-post-container">
     <div class="post-fields">
-      <textarea placeholder="Meessage" [(ngModel)]="message"></textarea>
-      <input #fileInput type="file" (change)="getFileSize($event.target.files[0], fileInput)" name="photo" ng2FileSelect [uploader]="uploader"  accept="image/*"/>
+      <h5>Įkelk nuotrauką</h5>
+      <div class="add-file-container">
+        <input class="add-file-input" #fileInput type="file" (change)="getFileSize($event.target.files[0], fileInput)" name="photo" ng2FileSelect [uploader]="uploader"  accept="image/*"/>
+      </div>
+      <h5>Kategorija</h5>
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Išsirinkite vieną"  [(ngModel)]="selectedCategory">
+          <mat-option *ngFor="let category of categories" [value]="category.value">
+            {{category.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <h5>Pažeidimo laikas</h5>
+      <mat-form-field class="full-width">
+        <input matInput type="time" #timeInput value="{{currentTime | date:'H:mm'}}">
+      </mat-form-field>
+      <button (click)="testFOO(timeInput.value, selectedCategory)">TEST</button>
+      <h5>Pažeidimo apibūdinimas</h5>
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Jūsų tekstas" [(ngModel)]="message"></textarea>
+      </mat-form-field>
 
     </div>
     <app-select-place (sendCoordinates)="getCordinates($event)" class="map-container"></app-select-place>

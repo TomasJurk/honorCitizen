@@ -7,6 +7,11 @@ import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file
 import { LoginModalComponent } from '../../users/login-modal/login-modal.component';
 import url from '../../url';
 
+export interface Category {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
@@ -16,8 +21,18 @@ export class NewPostComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
 
-  user: object;
+  categories: Category[] = [
+    {value: 'ket-0', viewValue: 'Kelių eismo taisyklių pažeidimai'},
+    {value: 'viesosios-1', viewValue: 'Viešosios tvarkos pažeidimai'},
+    {value: 'vagyste-2', viewValue: 'Vagystė'},
+    {value: 'nusikaltimai-3', viewValue: 'Nusikaltimai prieš asmenį'},
+    {value: 'kiti-4', viewValue: 'Kiti nusikaltimai'}
+  ];
+  currentTime: number = Date.now();
+  selectedCategory: string;
   message: string;
+
+  user: object;
   cordinates: {latitude: number, longitude: number};
   size: any;
 
@@ -29,6 +44,7 @@ export class NewPostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.currentTime);
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
     } else {
@@ -38,6 +54,11 @@ export class NewPostComponent implements OnInit {
       }, 0);
     }
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
+  }
+
+  testFOO(a, b) {
+    console.log(a);
+    console.log(b);
   }
 
   openLoginDialog() {
