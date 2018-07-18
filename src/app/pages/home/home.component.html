@@ -2,7 +2,7 @@
   <div class="map__wrapper">
     <app-maps  *ngIf="posts" [posts]="posts"></app-maps>
     <mat-card class="home__card">
-        <h1>
+        <h1 class="card__h1">
           <span class="card__h1--a">
               Padėk
           </span>
@@ -10,12 +10,57 @@
               fiksuoti
           </span>
           <span class="card__h1--c">
-              pranešimus
+              pažeidimus
           </span>
         </h1>
+        <button routerLink="post/new" mat-button class="btn">Įkelk</button>
       </mat-card>
   </div>
-  <section>
+  <div class="info__wrap">
+    <section class="section__features">
+      <section class="features features__capture">
+        <span class="circle__icon">
+            <img class="icon" src="./assets/images/camera.svg" alt="capture icon">
+        </span>
+        <h2 class="feature__title">Fiksuok</h2>
+        <p class="feature__description">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+      </section>
+      <section  class="features">
+        <span class="circle__icon">
+          <img class="icon" src="./assets/images/plus.svg" alt="upload icon">
+        </span>
+        <h2 class="feature__title">Įkelk</h2>
+        <p class="feature__description">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
 
-  </section>
+      </section>
+      <section class="features features__share">
+        <span class="circle__icon">
+          <img class="icon" src="./assets/images/arrowRight.svg" alt="share icon">
+        </span>
+        <h2 class="feature__title">Dalinkis</h2>
+        <p class="feature__description">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+      </section>
+    </section>
+    <button routerLink="post/new" mat-button class="btn">Įkelk</button>
+    <section class="section__recentfeed">
+      <div *ngFor="let post of posts" class="recentfeed__item"
+      [style.background]="'url(http://176.223.143.125:3000/'+ post.thumbnail + ')'"
+      [style.background-repeat]="'no-repeat'"
+      [style.background-position]="'center'"
+      [style.background-size]="'cover'"
+      >
+      <div class="item__stats">
+        <div class="stats__field">
+          <img src="./assets/images/like.svg" alt="">
+          <small class="field__text">123</small>
+        </div>
+        <div class="stats__field">
+            <img src="./assets/images/coment.svg" alt="">
+            <small class="field__text">123</small>
+          </div>
+      </div>
+      </div>
+    </section>
+    <button routerLink="posts" mat-button class="btn">Daugiau</button>
+  </div>
 </main>
