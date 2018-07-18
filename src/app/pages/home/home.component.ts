@@ -6,8 +6,6 @@ import { PostService } from '../../posts/post.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  parentMessage = "message from parent";
-
   posts: any;
   constructor(private _pS: PostService) {
     this.getPosts();
