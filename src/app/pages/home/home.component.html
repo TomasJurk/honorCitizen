@@ -1,3 +1,21 @@
 <main class="home__container">
-  <app-maps></app-maps>
+  <div class="map__wrapper">
+    <app-maps  *ngIf="posts" [posts]="posts"></app-maps>
+    <mat-card class="home__card">
+        <h1>
+          <span class="card__h1--a">
+              Padėk
+          </span>
+          <span class="card__h1--b">
+              fiksuoti
+          </span>
+          <span class="card__h1--c">
+              pranešimus
+          </span>
+        </h1>
+      </mat-card>
+  </div>
+  <section>
+
+  </section>
 </main>

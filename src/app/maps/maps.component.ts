@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterContentChecked} from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
 import {  } from 'google-maps';
@@ -9,14 +9,16 @@ import {  } from 'google-maps';
   styleUrls: ['./maps.component.scss']
 })
 
-export class MapsComponent implements OnInit {
+export class MapsComponent implements OnInit, AfterContentChecked {
+  @Input() posts: any;
+
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
   mapProp;
   title: 'My first AGM project';
   lat = 55.254299;
   lng = 23.886968;
-  minZoom = 7;
+  minZoom = 6.5;
   markers = [];
   infowindows = [];
   styles  ;
@@ -42,11 +44,21 @@ export class MapsComponent implements OnInit {
                 error => console.log(error),
                 () => {
                   this.initMap();
+                  this.initMarks();
+
                   this.limitPanning();
                 }
               );
+    console.log('--------------')
+    if (this.posts) {
+    } else {
+      console.log('need spiner service');
+    }
   }
+  ngAfterContentChecked() {
 
+    //
+  }
   limitPanning() {
     const allowedBounds = new google.maps.LatLngBounds(
       new google.maps.LatLng(54.892278282770164, 22.935060156249847),
@@ -79,40 +91,48 @@ export class MapsComponent implements OnInit {
       zoom: this.minZoom,
       minZoom: this.minZoom,
       styles: this.styles,
+      mapTypeControl: false,
+      streetViewControl: false,
+
       // mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
     this.map = new google.maps.Map(this.gmapElement.nativeElement, this.mapProp);
 
+
+
+    // this.myoverlay = new google.maps.OverlayView();
+    //   this.myoverlay.draw = function () {
+    //        // add an id to the layer that includes all the markers so you can use it in CSS
+    //        this.getPanes().markerLayer.id = 'markerLayer';
+    //    };
+    //    this.myoverlay.setMap(this.map);
+    // setInterval( () => {
+    //   this.markers.splice(3).forEach( a => a.setMap(null) );
+    //   this.infowindows = this.infowindows.slice(3);
+    //   this.dropMarks(3);
+    // }, 10000);
+  }
+
+  initMarks(){
     this.iconProp = {
       url: this.iconUrl,
       size: new google.maps.Size(100, 60),
       scaledSize: new google.maps.Size(70, 60),
       origin: new google.maps.Point(-15, 0)
-    };
+    },
 
     this.dropMarks();
-
-    this.myoverlay = new google.maps.OverlayView();
-      this.myoverlay.draw = function () {
-           // add an id to the layer that includes all the markers so you can use it in CSS
-           this.getPanes().markerLayer.id = 'markerLayer';
-       };
-       this.myoverlay.setMap(this.map);
-    setInterval( () => {
-      this.markers.splice(3).forEach( a => a.setMap(null) );
-      this.infowindows = this.infowindows.slice(3);
-      this.dropMarks(3);
-    }, 10000);
   }
 
   dropMarks(i: number = 0) {
-    for (i; i < demoPins.length; i++) {
-      this.addMarkerWithTimeout(demoPins[i], i * 300, i);
+    for (i; i < this.posts.length; i++) {
+      this.addMarkerWithTimeout(this.posts[i], i * 300, i);
     }
   }
+
   addMarkerWithTimeout(data, timeout, index) {
-    const contentString = `<div>${data.msg}</div>`;
+    const contentString = `<div>${data.description}</div>`;
     setTimeout( () => {
       this.infowindows.push(
         new google.maps.InfoWindow({
@@ -121,7 +141,7 @@ export class MapsComponent implements OnInit {
         })
       );
       const mark = new google.maps.Marker({
-        position: new google.maps.LatLng(data.coordinates.lat, data.coordinates.lng),
+        position: new google.maps.LatLng(data.coordinates.latitude, data.coordinates.longitude),
         map: this.map,
         icon: this.iconProp,
         // must use optimized false for CSS

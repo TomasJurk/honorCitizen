@@ -1,10 +1,17 @@
-<mat-toolbar class="navbar-container">
-  <span class="spacer"></span>
-  <div *ngIf="!user">
-  <button mat-button (click)="openLoginDialog()">Sign In</button>
-  <button mat-button (click)="openNewUserDialog()">New user</button>
+<mat-toolbar  class="navbar">
+
+  <div *ngIf="!user"  class="navbar__container">
+     <span class="spacer"></span>
+     <button mat-button (click)="openLoginDialog()">Sign In</button>
+     <button mat-button (click)="openNewUserDialog()">New user</button>
   </div>
-  <div *ngIf="user">
+
+  <div *ngIf="user" class="navbar__container">
+    <div class="navbar__logo">Logo</div>
+    <button mat-button class="btn">Įkelk</button>
+    <input class="search__input" placeholder="Placeholder">
+    <span class="spacer"></span>
     <button mat-button (click)="logOut()">Log Out</button>
   </div>
+
 </mat-toolbar>
