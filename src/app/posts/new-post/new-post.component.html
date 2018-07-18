@@ -23,12 +23,11 @@
       <mat-form-field class="full-width">
         <input matInput type="time" #timeInput value="{{currentTime | date:'H:mm'}}">
       </mat-form-field>
-      <button (click)="testFOO(timeInput.value, selectedCategory)">TEST</button>
+      <button (click)="testFOO(timeInput.value)">TEST</button>
       <h5>Pažeidimo apibūdinimas</h5>
       <mat-form-field class="full-width">
         <textarea matInput placeholder="Jūsų tekstas" [(ngModel)]="message"></textarea>
       </mat-form-field>
-
     </div>
     <app-select-place (sendCoordinates)="getCordinates($event)" class="map-container"></app-select-place>
     <button (click)="newPost(fileInput.value)">Įkelk</button>

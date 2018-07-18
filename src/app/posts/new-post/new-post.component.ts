@@ -44,7 +44,6 @@ export class NewPostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.currentTime);
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
     } else {
@@ -56,9 +55,10 @@ export class NewPostComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
   }
 
-  testFOO(a, b) {
-    console.log(a);
-    console.log(b);
+  testFOO(time) {
+    console.log(time);
+    console.log(this.selectedCategory);
+    console.log(this.message);
   }
 
   openLoginDialog() {
