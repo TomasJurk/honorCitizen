@@ -36,6 +36,8 @@ export class NewPostComponent implements OnInit {
   cordinates: {latitude: number, longitude: number};
   size: any;
 
+  imgUrl: any;
+  imgStyle: any;
   constructor(
     public loginDialog: MatDialog,
     public router: Router,
@@ -69,7 +71,16 @@ export class NewPostComponent implements OnInit {
     });
   }
 
+
   getFileSize(file, el) {
+    const reader = new FileReader();
+    reader.onload = (data) => {
+      this.imgUrl = data.target;
+      this.imgStyle = {
+        'background': `url('${this.imgUrl.result}') center center / cover no-repeat`
+      };
+    };
+    reader.readAsDataURL(file);
     const type = file.type.split('/')[1];
     if (type === 'jpg' || type === 'jpeg' || type === 'png') {
       this.size = file.size;
