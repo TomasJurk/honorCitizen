@@ -11,11 +11,19 @@
   display: flex;
   width: 80%;
 }
+.navbar__logo{
+  font-size: 20px;
+  font-weight: 700;
+}
 .btn {
+
   background-color: #ff5873;
 }
 .search__input {
   background-color: #f2f2f2;
+  @media screen and (max-width : 576px) {
+    display: none;
+  }
 }
 .sign-in-field {
   max-width: 100px;
