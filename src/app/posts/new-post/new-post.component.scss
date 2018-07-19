@@ -55,7 +55,15 @@
   .submit-container {
     width: 100%;
     display: flex;
+    align-items: center;
     padding: 60px 70px;
+  }
+
+  .arrow {
+    cursor: pointer;
+    height: 30px;
+    width: 70px;
+    background: url("../../../assets/images/arrowBack.svg") center center / contain no-repeat;
   }
 
   .btn {
