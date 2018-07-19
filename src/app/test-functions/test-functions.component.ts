@@ -33,7 +33,12 @@ export class TestFunctionsComponent implements OnInit {
   }
 
   filter(field, value) {
-    this.http.get(`${url}/post/filter/${field}/${value}`)
+    // console.log(field, value)
+    this.http.get(`${url}/posts/filter/${field}/${value}`).subscribe(data => console.log(data.json()))
+  }
+
+  getSorted(field) {
+    this.http.get(`${url}/posts/sort/${field}`).subscribe(data => console.log(data.json()));
   }
 
   deleteComment(id, postID, lastID) {
