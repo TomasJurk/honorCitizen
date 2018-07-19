@@ -7,6 +7,11 @@ import { FileUploader, FileSelectDirective, FileUploaderOptions } from 'ng2-file
 import { LoginModalComponent } from '../../users/login-modal/login-modal.component';
 import url from '../../url';
 
+export interface Category {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
@@ -16,11 +21,23 @@ export class NewPostComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
 
-  user: object;
+  categories: Category[] = [
+    {value: 'ket-0', viewValue: 'Kelių eismo taisyklių pažeidimai'},
+    {value: 'viesosios-1', viewValue: 'Viešosios tvarkos pažeidimai'},
+    {value: 'vagyste-2', viewValue: 'Vagystė'},
+    {value: 'nusikaltimai-3', viewValue: 'Nusikaltimai prieš asmenį'},
+    {value: 'kiti-4', viewValue: 'Kiti nusikaltimai'}
+  ];
+  currentTime: number = Date.now();
+  selectedCategory: string;
   message: string;
+
+  user: object;
   cordinates: {latitude: number, longitude: number};
   size: any;
 
+  imgUrl: any;
+  imgStyle: any;
   constructor(
     public loginDialog: MatDialog,
     public router: Router,
@@ -40,6 +57,12 @@ export class NewPostComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
   }
 
+  testFOO(time) {
+    console.log(time);
+    console.log(this.selectedCategory);
+    console.log(this.message);
+  }
+
   openLoginDialog() {
     this.loginDialog.open(LoginModalComponent, {
       data: {
@@ -48,7 +71,16 @@ export class NewPostComponent implements OnInit {
     });
   }
 
+
   getFileSize(file, el) {
+    const reader = new FileReader();
+    reader.onload = (data) => {
+      this.imgUrl = data.target;
+      this.imgStyle = {
+        'background': `url('${this.imgUrl.result}') center center / cover no-repeat`
+      };
+    };
+    reader.readAsDataURL(file);
     const type = file.type.split('/')[1];
     if (type === 'jpg' || type === 'jpeg' || type === 'png') {
       this.size = file.size;

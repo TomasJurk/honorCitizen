@@ -40,7 +40,7 @@ import { PostsComponent } from './posts/posts.component';
 import { MapsComponent } from './maps/maps.component';
 import { PostModalComponent } from './posts/post-modal/post-modal.component';
 import { SelectPlaceComponent } from './maps/select-place/select-place.component';
-
+import { MatSelectModule } from '@angular/material/select';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -85,7 +85,8 @@ export function getAuthHttp(http: Http) {
     MatCardModule,
     MatInputModule,
     MatToolbarModule,
-    LayoutModule
+    LayoutModule,
+    MatSelectModule
   ],
   providers: [AuthService,
       {

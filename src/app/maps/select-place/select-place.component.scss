@@ -2,3 +2,9 @@
   width: 100%;
   height: 100%;
 }
+
+.pac-card {
+  position: absolute;
+  z-index: 1;
+  align-self: center;
+}
