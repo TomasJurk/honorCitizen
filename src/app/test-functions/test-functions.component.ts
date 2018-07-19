@@ -32,13 +32,17 @@ export class TestFunctionsComponent implements OnInit {
     }
   }
 
-  filter(field, value) {
-    // console.log(field, value)
-    this.http.get(`${url}/posts/filter/${field}/${value}`).subscribe(data => console.log(data.json()))
-  }
-
-  getSorted(field) {
-    this.http.get(`${url}/posts/sort/${field}`).subscribe(data => console.log(data.json()));
+  filter(sort, filter, value) {
+    const query: any = {
+      sort,
+      filter,
+      value
+    };
+    if (!query.filter) {
+      query.value = '';
+    }
+    console.log(query)
+    this.http.post(`${url}/posts/filter`, query).subscribe(data => console.log(data.json()))
   }
 
   deleteComment(id, postID, lastID) {
@@ -81,6 +85,8 @@ export class TestFunctionsComponent implements OnInit {
     this.uploader.onBuildItemForm = (item, form) => {
       form.append('user', id);
       form.append('description', desc);
+      form.append('latitude', 54);
+      form.append('longitude', 25);
     };
     this.uploader.setOptions(options);
     this.uploader.uploadAll();

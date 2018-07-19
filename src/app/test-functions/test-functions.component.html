@@ -6,16 +6,16 @@
 <button (click)='emailSignup()'>emailSignup</button>
 <button (click)='emailLogin()'>emailLogin</button>
 <button (click)='getPosts()'>getPosts</button>
-<button (click)='getSorted(selectSort.value)'>getSortedBy:</button>
+<button (click)='filter(selectSort.value, selectFilter.value, user._id)'>filter</button>
 <select #selectSort name="" id="">
 	<option value="createdAt" selected>Date (old to new)</option>
 	<option value="-createdAt">Date (new to old)</option>
 	<option value="-commentCount">Number of comments</option>
 	<option value="-likes.count">Number of likes</option>
 </select>
-<button (click)='filter(selectFilter.value, user._id)'>filterBy</button>
 <select #selectFilter name="" id="">
-	<option value="user._id">user (only this user)</option>
+	<option value="user">user (only this user)</option>
+	<option value="">no filter</option>
 </select>
 <hr>
 <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
