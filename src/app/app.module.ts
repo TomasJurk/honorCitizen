@@ -41,6 +41,16 @@ import { MapsComponent } from './maps/maps.component';
 import { PostModalComponent } from './posts/post-modal/post-modal.component';
 import { SelectPlaceComponent } from './maps/select-place/select-place.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule  } from '@angular/material';
+
+// locales
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/lt';
+
+registerLocaleData(localePt, 'lt-BR');
+
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -86,7 +96,9 @@ export function getAuthHttp(http: Http) {
     MatInputModule,
     MatToolbarModule,
     LayoutModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   providers: [AuthService,
       {
@@ -94,7 +106,8 @@ export function getAuthHttp(http: Http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    PostService
+    PostService, MatDatepickerModule, MatNativeDateModule,
+    { provide: LOCALE_ID, useValue: 'lt-BR' }
   ],
   entryComponents: [
     NewUserModalComponent,
