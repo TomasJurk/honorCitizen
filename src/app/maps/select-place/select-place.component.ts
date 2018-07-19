@@ -24,6 +24,7 @@ export class SelectPlaceComponent implements OnInit {
   selectMark;
   draggable = true;
   markerShow = false;
+  styles;
 
   @Output() sendCoordinates = new EventEmitter<object>();
 
@@ -34,9 +35,17 @@ export class SelectPlaceComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.initMap();
-
+    this.http.get('./assets/map/styles.json')
+    .subscribe( response => {
+                  this.styles = response;
+                },
+                error => console.log(error),
+                () => {
+                  this.initMap();
+                }
+              );
   }
+
   initMap() {
 
     this.mapProp = {
@@ -46,7 +55,7 @@ export class SelectPlaceComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
       streetViewControl: false,
-      styles: this.http.get('./assets/maps/styles.json')
+      styles: this.styles
 
     };
 
@@ -171,7 +180,7 @@ export class SelectPlaceComponent implements OnInit {
     }
   }
   emitCords() {
-    this.cords = {
+      this.cords = {
       latitude: this.selectMark.getPosition().lat(),
       longitude: this.selectMark.getPosition().lng()
      };
