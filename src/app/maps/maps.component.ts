@@ -45,11 +45,10 @@ export class MapsComponent implements OnInit, AfterContentChecked {
                 () => {
                   this.initMap();
                   this.initMarks();
-
                   this.limitPanning();
                 }
               );
-    console.log('--------------')
+    console.log('--------------');
     if (this.posts) {
     } else {
       console.log('need spiner service');
@@ -94,27 +93,12 @@ export class MapsComponent implements OnInit, AfterContentChecked {
       mapTypeControl: false,
       streetViewControl: false,
 
-      // mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
     this.map = new google.maps.Map(this.gmapElement.nativeElement, this.mapProp);
-
-
-
-    // this.myoverlay = new google.maps.OverlayView();
-    //   this.myoverlay.draw = function () {
-    //        // add an id to the layer that includes all the markers so you can use it in CSS
-    //        this.getPanes().markerLayer.id = 'markerLayer';
-    //    };
-    //    this.myoverlay.setMap(this.map);
-    // setInterval( () => {
-    //   this.markers.splice(3).forEach( a => a.setMap(null) );
-    //   this.infowindows = this.infowindows.slice(3);
-    //   this.dropMarks(3);
-    // }, 10000);
   }
 
-  initMarks(){
+  initMarks() {
     this.iconProp = {
       url: this.iconUrl,
       size: new google.maps.Size(100, 60),
