@@ -11,7 +11,6 @@
       <div class="add-file-container" [ngStyle]="imgStyle">
         <input class="add-file-input" #fileInput type="file" (change)="getFileSize($event.target.files[0], fileInput)" name="photo" ng2FileSelect [uploader]="uploader"  accept="image/*"/>
       </div>
-      <!-- <img *ngIf="imgUrl" src="{{imgUrl.result}}" alt=""> -->
       <h5>Kategorija</h5>
       <mat-form-field class="full-width">
         <mat-select placeholder="Išsirinkite vieną"  [(ngModel)]="selectedCategory">
@@ -20,9 +19,14 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <h5>Pažeidimo laikas</h5>
+      <h5>Pažeidimo laikas ir data</h5>
       <mat-form-field class="full-width">
-        <input matInput type="time" #timeInput value="{{currentTime | date:'H:mm'}}">
+        <input matInput type="time" #timeInput value="{{currentTime | date:'H:mm'}}" placeholder="Laikas">
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="picker" #dateInput [value]="currentTime" placeholder="Data">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <h5>Pažeidimo apibūdinimas</h5>
       <mat-form-field class="full-width">
@@ -31,9 +35,9 @@
     </div>
     <app-select-place (sendCoordinates)="getCordinates($event)" class="map-container"></app-select-place>
     <div class="submit-container">
-      <span class="arrow"></span>
+      <span class="arrow"  [routerLink]="['/']"></span>
       <span class="spacer"></span>
-      <button matButton class="btn"  (click)="testFOO(timeInput.value)" (click)="newPost(fileInput.value)">Įkelk</button>
+      <button matButton class="btn" (click)="newPost(fileInput.value, timeInput.value, dateInput.value)">Įkelk</button>
     </div>
   </mat-card>
 

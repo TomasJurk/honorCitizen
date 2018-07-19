@@ -28,7 +28,7 @@ export class NewPostComponent implements OnInit {
     {value: 'nusikaltimai-3', viewValue: 'Nusikaltimai prieš asmenį'},
     {value: 'kiti-4', viewValue: 'Kiti nusikaltimai'}
   ];
-  currentTime: number = Date.now();
+  currentTime: any = new Date();
   selectedCategory: string;
   message: string;
 
@@ -57,12 +57,6 @@ export class NewPostComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
   }
 
-  testFOO(time) {
-    console.log(time);
-    console.log(this.selectedCategory);
-    console.log(this.message);
-  }
-
   openLoginDialog() {
     this.loginDialog.open(LoginModalComponent, {
       data: {
@@ -84,7 +78,7 @@ export class NewPostComponent implements OnInit {
     const type = file.type.split('/')[1];
     if (type === 'jpg' || type === 'jpeg' || type === 'png') {
       this.size = file.size;
-      console.log('correct');
+      console.log('correct file type');
     } else {
       el.value = null;
       console.log('incorrect file type');
@@ -93,7 +87,15 @@ export class NewPostComponent implements OnInit {
   getCordinates(obj) {
     this.cordinates = obj;
   }
-  newPost(el) {
+
+  newPost(el, time, date) {
+    const timeToSend = new Date();
+    date = date.split('-');
+    time = time.split(':');
+    timeToSend.setFullYear(date[0], (date[1] - 1), date[2]);
+    timeToSend.setHours(time[0]);
+    timeToSend.setMinutes(time[1]);
+    console.log(timeToSend.getTime());
     if (this.size >= 6000000) {
       console.log('too big');
       return;
