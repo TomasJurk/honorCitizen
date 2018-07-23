@@ -1,0 +1,40 @@
+.footer_container {
+    padding: 35px 15vw;
+    background-color: #222528;
+    display: flex;
+    justify-content: space-between;
+
+    p {
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .social-insta {
+        background: url('../../../assets/images/socials/insta.svg') center center no-repeat;
+    }
+    .social-twit {
+        background: url('../../../assets/images/socials/twit.svg') center center no-repeat;
+    }
+    .social-fb {
+        background: url('../../../assets/images/socials/fb.svg') center center no-repeat;
+    }
+
+    .social {
+        display: inline-block;
+        background-color: #333333;
+        cursor: pointer;
+        margin: 8px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .footer_container {
+        .social {
+            display: block;
+        }
+    }
+}
