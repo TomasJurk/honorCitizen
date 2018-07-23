@@ -73,7 +73,7 @@ export class TestFunctionsComponent implements OnInit {
     const userID = JSON.parse(localStorage.user)._id;
     const userPhoto = this.user['photoURL'];
     const username = this.user['fullName'];
-    this._post.postComment({message, postID, userID}).subscribe(res => console.log(res));
+    this._post.postComment({message, postID, userID}).subscribe(res => console.log(res.json()));
   }
 
   newPost() {

@@ -39,6 +39,7 @@ export class AuthService {
     return this.http.post(this.url + '/users/auth/login',
       { email, password }).subscribe(
         response => {
+        	console.log(response);
           const token = response.headers.get('x-auth-token');
           if (token) {
             localStorage.setItem('id_token', token);
