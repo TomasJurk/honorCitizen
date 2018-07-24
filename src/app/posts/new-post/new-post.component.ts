@@ -95,7 +95,6 @@ export class NewPostComponent implements OnInit {
     timeToSend.setFullYear(date[0], (date[1] - 1), date[2]);
     timeToSend.setHours(time[0]);
     timeToSend.setMinutes(time[1]);
-    console.log(timeToSend.getTime());
     if (this.size >= 6000000) {
       console.log('too big');
       return;
@@ -105,22 +104,28 @@ export class NewPostComponent implements OnInit {
     }
     const id = JSON.parse(localStorage.user)._id;
     if (id) {
-      const options: FileUploaderOptions = {};
-      const token = localStorage.id_token;
-      options.headers = [{ name: 'x-auth-token', value: token }];
-      this.uploader.onBuildItemForm = (item, form) => {
-        form.append('user', id);
-        form.append('description', this.message);
-        form.append('', timeToSend);
-        form.append('', this.selectedCategory);
-        form.append('longitude', this.cordinates.longitude);
-        form.append('latitude', this.cordinates.latitude);
-      };
-      this.uploader.setOptions(options);
-      this.uploader.uploadAll();
-      this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-        console.log(JSON.parse(response));
-      };
+      if (this.selectedCategory) {
+        const options: FileUploaderOptions = {};
+        const token = localStorage.id_token;
+        options.headers = [{ name: 'x-auth-token', value: token }];
+        this.uploader.onBuildItemForm = (item, form) => {
+          form.append('user', id);
+          form.append('description', this.message);
+          form.append('date', timeToSend.getTime());
+          form.append('category', this.selectedCategory);
+          form.append('longitude', this.cordinates.longitude);
+          form.append('latitude', this.cordinates.latitude);
+        };
+        this.uploader.setOptions(options);
+        this.uploader.uploadAll();
+        this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+          console.log(JSON.parse(response));
+        };
+        console.log('Success');
+        this.router.navigate(['/posts']);
+      } else {
+        alert('Išsirinkite kategorija');
+      }
     } else {
       console.log('please login');
     }
