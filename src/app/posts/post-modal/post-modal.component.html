@@ -1,13 +1,53 @@
-<h2>
-  {{data.name}}
-</h2>
-<img class="modal-image" src="http://176.223.143.125:3000/{{data.img}}" alt="Post picture">
-<p>
-  {{data.descr}}
-</p>
-<h3>Comments:</h3>
-<div class="comments-container">
-  <p *ngFor="let comment of comments">
-    {{comment.message}}
-  </p>
+
+<div class="modal_content">
+  <header>
+    <img class="user_photo" src="https://timedotcom.files.wordpress.com/2017/02/world-press-photo-078_ami-vitale_national-geographic-magazine.jpg?quality=85" alt="User photo">
+    <h5>
+      {{data.name}}
+    </h5>
+  </header>
+  <img class="modal-image" src="http://176.223.143.125:3000/{{data.img}}" alt="Post picture">
+  <div class="description_container">
+    <p>
+      {{data.descr}}
+    </p>
+  </div>
+  <div class="comments-container">
+    <div class="comment">
+      <img  class="user_photo" src="" alt="">
+      <p *ngFor="let comment of comments">
+        {{comment.message}}
+      </p>
+    </div>
+    <div class="comment">
+      <img  class="user_photo" src="" alt="">
+      <div class="comment_content">
+        <h5>Ignat</h5>
+        <p>Comment 123</p>
+      </div>
+    </div>
+    <div class="comment">
+      <img  class="user_photo" src="" alt="">
+      <div class="comment_content">
+        <h5>Inakentij</h5>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo quaerat voluptatem architecto assumenda omnis natus.</p>
+      </div>
+    </div>
+    <div class="comment">
+      <img  class="user_photo" src="" alt="">
+      <div class="comment_content">
+        <h5>Kiril</h5>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates blanditiis repellendus cumque nesciunt quibusdam perspiciatis labore quia, veritatis officiis? Assumenda sint eum incidunt et facilis minus rerum laborum cumque porro?</p>
+      </div>
+    </div>
+    <div class="comment">
+      <img class="user_photo" src="" alt="">
+      <mat-card class="comment_input">
+        <textarea tabindex="-1" placeholder="Enter your comment" type="text"></textarea>
+        <button tabindex="-1" mat-button>post</button>
+      </mat-card>
+    </div>
+  </div>
 </div>
+
+
