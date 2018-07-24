@@ -46,13 +46,9 @@ export class TestFunctionsComponent implements OnInit {
     };
     if (query.filter === 'location') {
       query.value = {
-        $near: {
-          $maxDistance: 1000,
-          $geometry: {
-            type: "Point",
-            coordinates: [24.515991210937504, 53.97547425742953]
-          }
-        }
+         longitude: 25.48141479492188,
+         latitude: 54.86396293985479,
+         distance: 100000
       }
     };
     if (!query.filter) {
@@ -104,8 +100,8 @@ export class TestFunctionsComponent implements OnInit {
     this.uploader.onBuildItemForm = (item, form) => {
       form.append('user', id);
       form.append('description', desc);
-      form.append('latitude', 52.342051636387865);
-      form.append('longitude', 29.415893554687504);
+      form.append('latitude', 55.754940702479175);
+      form.append('longitude', 24.34982299804688);
       form.append('createdAt', Date.now());
       form.append('category', category),
         form.append('date', date)
