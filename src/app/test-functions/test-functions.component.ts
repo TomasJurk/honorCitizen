@@ -21,6 +21,10 @@ export class TestFunctionsComponent implements OnInit {
 
   user: object;
   message: string;
+  date: Date;
+  filterBy: string = '';
+  categoryFilter: string = 'dogs';
+  category: string = 'dogs';
   postList: any[];
   size: any;
   allComments: any[];
@@ -32,11 +36,24 @@ export class TestFunctionsComponent implements OnInit {
     }
   }
 
-  filter(sort, filter, value) {
+  filter(sort, filter, value, limit, skip) {
     const query: any = {
       sort,
       filter,
-      value
+      value,
+      limit,
+      skip
+    };
+    if (query.filter === 'location') {
+      query.value = {
+        $near: {
+          $maxDistance: 1000,
+          $geometry: {
+            type: "Point",
+            coordinates: [24.515991210937504, 53.97547425742953]
+          }
+        }
+      }
     };
     if (!query.filter) {
       query.value = '';
@@ -46,11 +63,11 @@ export class TestFunctionsComponent implements OnInit {
   }
 
   deleteComment(id, postID, lastID) {
-  	this.http.post(`${url}/comments/${id}`, {postID, lastID}).subscribe(data => console.log(data.json()));
+    this.http.post(`${url}/comments/${id}`, { postID, lastID }).subscribe(data => console.log(data.json()));
   }
 
   report(id) {
-  	this.http.post(`${url}/posts/post/${id}`, {}).subscribe(data => console.log(data.json()));
+    this.http.post(`${url}/posts/post/${id}`, {}).subscribe(data => console.log(data.json()));
   }
 
   like(id) {
@@ -64,8 +81,8 @@ export class TestFunctionsComponent implements OnInit {
 
   logAllComments(id) {
     this._post.getAllComments(id).subscribe(data => {
-    	console.log(data.json());
-    	this.allComments = data.json();
+      console.log(data.json());
+      this.allComments = data.json();
     });
   }
 
@@ -73,11 +90,13 @@ export class TestFunctionsComponent implements OnInit {
     const userID = JSON.parse(localStorage.user)._id;
     const userPhoto = this.user['photoURL'];
     const username = this.user['fullName'];
-    this._post.postComment({message, postID, userID}).subscribe(res => console.log(res.json()));
+    this._post.postComment({ message, postID, userID }).subscribe(res => console.log(res.json()));
   }
 
   newPost() {
     const desc = this.message;
+    const category = this.category;
+    const date = this.date;
     const id = JSON.parse(localStorage.user)._id;
     const options: FileUploaderOptions = {};
     const token = localStorage.id_token;
@@ -85,8 +104,11 @@ export class TestFunctionsComponent implements OnInit {
     this.uploader.onBuildItemForm = (item, form) => {
       form.append('user', id);
       form.append('description', desc);
-      form.append('latitude', 54);
-      form.append('longitude', 25);
+      form.append('latitude', 52.342051636387865);
+      form.append('longitude', 29.415893554687504);
+      form.append('createdAt', Date.now());
+      form.append('category', category),
+        form.append('date', date)
     };
     this.uploader.setOptions(options);
     this.uploader.uploadAll();
@@ -120,7 +142,7 @@ export class TestFunctionsComponent implements OnInit {
     const userData = {
       email: 'email123@email.com',
       fullName: 'Name',
-      photoURL:  '',
+      photoURL: '',
       password: 'password',
     };
     this._auth.emailSignup(userData).subscribe(d => console.log(d));

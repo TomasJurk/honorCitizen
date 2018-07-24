@@ -6,20 +6,31 @@
 <button (click)='emailSignup()'>emailSignup</button>
 <button (click)='emailLogin()'>emailLogin</button>
 <button (click)='getPosts()'>getPosts</button>
-<button (click)='filter(selectSort.value, selectFilter.value, user._id)'>filter</button>
+<button (click)='filter(selectSort.value, filterBy, (filterBy === "user" ? user._id : categoryFilter), 0, 0)'>filter</button>
 <select #selectSort name="" id="">
 	<option value="createdAt" selected>Date (old to new)</option>
 	<option value="-createdAt">Date (new to old)</option>
 	<option value="-commentCount">Number of comments</option>
 	<option value="-likes.count">Number of likes</option>
 </select>
-<select #selectFilter name="" id="">
+<select [(ngModel)]="filterBy" name="" id="">
 	<option value="user">user (only this user)</option>
+	<option value="category">category</option>
+	<option value="location">location</option>
 	<option value="">no filter</option>
+</select>
+<select [(ngModel)]="categoryFilter" *ngIf="filterBy === 'category'">
+	<option value="dogs">Dogs</option>
+	<option value="cats">Cats</option>
 </select>
 <hr>
 <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
 <input [(ngModel)]="message" type="text">
+<select [(ngModel)]="category">
+	<option value="dogs" selected>Dogs</option>
+	<option value="cats">Cats</option>
+</select>
+<input [(ngModel)]="date" type="date">
 <button (click)="newPost()">upload Image</button>
 <hr>
 <div class="posts" *ngFor="let post of postList">
