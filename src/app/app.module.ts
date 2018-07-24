@@ -109,12 +109,7 @@ export function getAuthHttp(http: Http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-<<<<<<< HEAD
-    PostService, MatDatepickerModule, MatNativeDateModule,
-    { provide: LOCALE_ID, useValue: 'lt-BR' }
-=======
     PostService,
->>>>>>> PJ
   ],
   entryComponents: [
     NewUserModalComponent,
