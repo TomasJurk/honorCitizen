@@ -146,9 +146,9 @@ export class SelectPlaceComponent implements OnInit {
         latitude: this.map2.getCenter().lat(),
         longitude: this.map2.getCenter().lng()
         };
-      }
+      } else {
       this.cords = this.cordinates;
-
+    }
     if (this.selectMark && this.selectMark.setMap) {
       this.markerShow = false;
     }
@@ -163,7 +163,7 @@ export class SelectPlaceComponent implements OnInit {
     // this.map2.setZoom(10);
     if (!this.draggable) {
       this.markerShow = true;
-      this.map2.setZoom(13);  // Why 17? Because it looks good.
+      this.map2.setZoom(13);
       this.map2.addListener('center_changed', () => {
         if (this.selectMark && this.selectMark.setMap) {
             this.selectMark.setPosition(new google.maps.LatLng(this.map2.getCenter().lat(), this.map2.getCenter().lng()));
