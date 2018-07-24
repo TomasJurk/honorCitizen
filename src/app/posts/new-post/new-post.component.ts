@@ -111,6 +111,8 @@ export class NewPostComponent implements OnInit {
       this.uploader.onBuildItemForm = (item, form) => {
         form.append('user', id);
         form.append('description', this.message);
+        form.append('', timeToSend);
+        form.append('', this.selectedCategory);
         form.append('longitude', this.cordinates.longitude);
         form.append('latitude', this.cordinates.latitude);
       };
