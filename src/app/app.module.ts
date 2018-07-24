@@ -48,6 +48,7 @@ import { MatNativeDateModule  } from '@angular/material';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/lt';
+import { FooterComponent } from './core/footer/footer.component';
 
 registerLocaleData(localePt, 'lt-BR');
 
@@ -78,6 +79,7 @@ export function getAuthHttp(http: Http) {
     MapsComponent,
     PostModalComponent,
     SelectPlaceComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
