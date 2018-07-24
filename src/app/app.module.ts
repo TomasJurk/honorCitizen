@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule, Http } from '@angular/http';
-
+import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // 3rd MODULES
 import { FileSelectDirective } from 'ng2-file-upload';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
@@ -25,22 +27,20 @@ import { ProfileComponent } from './users/profile.component';
 import { NewUserModalComponent } from './users/new-user-modal/new-user-modal.component';
 import { LoginModalComponent } from './users/login-modal/login-modal.component';
 import { NavbarComponent } from './core/navbar/navbar.component';
+import { PostsComponent } from './posts/posts.component';
+import { MapsComponent } from './maps/maps.component';
+import { PostModalComponent } from './posts/post-modal/post-modal.component';
+import { SelectPlaceComponent } from './maps/select-place/select-place.component';
 
-// MODULES
-import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { PostsComponent } from './posts/posts.component';
-import { MapsComponent } from './maps/maps.component';
-import { PostModalComponent } from './posts/post-modal/post-modal.component';
-import { SelectPlaceComponent } from './maps/select-place/select-place.component';
 import { MatSelectModule } from '@angular/material/select';
+import {MatMenuModule} from '@angular/material/menu';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -86,7 +86,8 @@ export function getAuthHttp(http: Http) {
     MatInputModule,
     MatToolbarModule,
     LayoutModule,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule
   ],
   providers: [AuthService,
       {
@@ -94,13 +95,14 @@ export function getAuthHttp(http: Http) {
       useFactory: getAuthHttp,
       deps: [Http]
     },
-    PostService
+    PostService,
   ],
   entryComponents: [
     NewUserModalComponent,
     LoginModalComponent,
     PostModalComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
