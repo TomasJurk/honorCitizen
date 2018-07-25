@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'test', component: TestFunctionsComponent},
   { path: 'posts', component: PostsComponent },
+  { path: 'posts/filters/:filters', component: PostsComponent },
   { path: 'posts/:id', component: PostsComponent },
   { path: 'post/new', component: NewPostComponent }
 ];
