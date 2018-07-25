@@ -46,6 +46,7 @@ export class NewPostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.currentTime);
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
     } else {
