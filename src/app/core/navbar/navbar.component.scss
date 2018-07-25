@@ -51,12 +51,8 @@
   display: inline-block;
   width: 38px;
   height: 38px;
-  border: 1px solid #707070;
   border-radius: 50%;
-  img {
-    width: auto;
-    height: 100%;
-  }
+  object-fit: cover;
 }
 .sign-in-field {
   max-width: 100px;

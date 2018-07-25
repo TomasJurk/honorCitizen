@@ -28,6 +28,7 @@ export class PostsComponent implements OnInit {
   }
 
   openPostDialog(post) {
+    console.log(post);
     this.postModal.open(PostModalComponent, {
       data: {
         id: post._id,

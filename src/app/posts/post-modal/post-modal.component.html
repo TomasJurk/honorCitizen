@@ -5,46 +5,36 @@
     <h5>
       {{data.name}}
     </h5>
+    <span class="spacer"></span>
+    <button tabindex="-1" (click)="closeModal()" mat-icon-button>
+      <mat-icon>highlight_off</mat-icon>
+    </button>
   </header>
   <img class="modal-image" src="http://176.223.143.125:3000/{{data.img}}" alt="Post picture">
   <div class="description_container">
     <p>
       {{data.descr}}
     </p>
+    <div class="feedback_icons">
+        <svg id="SVGDoc" width="38" height="34" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:avocode="https://avocode.com/" viewBox="0 0 38 34"><defs><path d="M725,943.23821h-9.41176v-9.41177c0,-1.03959 -0.84276,-1.88235 -1.88235,-1.88235h-1.88235l-8.16051,10.11913c-0.80966,1.00406 -1.25122,2.25502 -1.25126,3.54487v14.57129c0,2.07918 1.68552,3.7647 3.76471,3.7647h12.11259c2.14983,0 4.11315,-1.2207 5.06423,-3.14868l5.41142,-10.96897v-2.82353c0,-2.07919 -1.68552,-3.76471 -3.76471,-3.76471z" id="Path-0"/><path d="M693,963.94409v-18.82353h5.64706v18.82353z" id="Path-1"/></defs><desc>Generated with Avocode.</desc><g transform="matrix(1,0,0,1,-692,-931)"><g><title>Path 201</title><use xlink:href="#Path-0" fill-opacity="0" fill="#ffffff" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g><g><title>Rectangle 1458</title><use xlink:href="#Path-1" fill-opacity="0" fill="#ffffff" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g></g></svg>
+    </div>
   </div>
   <div class="comments-container">
-    <div class="comment">
-      <img  class="user_photo" src="" alt="">
-      <p *ngFor="let comment of comments">
-        {{comment.message}}
-      </p>
-    </div>
-    <div class="comment">
+    <div *ngFor="let comment of comments" class="comment">
       <img  class="user_photo" src="" alt="">
       <div class="comment_content">
-        <h5>Ignat</h5>
-        <p>Comment 123</p>
-      </div>
-    </div>
-    <div class="comment">
-      <img  class="user_photo" src="" alt="">
-      <div class="comment_content">
-        <h5>Inakentij</h5>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo quaerat voluptatem architecto assumenda omnis natus.</p>
-      </div>
-    </div>
-    <div class="comment">
-      <img  class="user_photo" src="" alt="">
-      <div class="comment_content">
-        <h5>Kiril</h5>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates blanditiis repellendus cumque nesciunt quibusdam perspiciatis labore quia, veritatis officiis? Assumenda sint eum incidunt et facilis minus rerum laborum cumque porro?</p>
+        <h5>{{comment.user.fullName}}</h5>
+        <p>{{comment.message}}</p>
+        <button tabindex="-1" class="delete_btn" mat-button>
+          <i class="material-icons">delete_outline</i>
+        </button>
       </div>
     </div>
     <div class="comment">
       <img class="user_photo" src="" alt="">
       <mat-card class="comment_input">
-        <textarea tabindex="-1" placeholder="Enter your comment" type="text"></textarea>
-        <button tabindex="-1" mat-button>post</button>
+        <textarea tabindex="-1" placeholder="Enter your comment" [(ngModel)]="writeComment" type="text"></textarea>
+        <button tabindex="-1" (click)="postComment(writeComment)" mat-button>post</button>
       </mat-card>
     </div>
   </div>

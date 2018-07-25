@@ -12,7 +12,6 @@ import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
 // import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
 
-
 // SERVICES
 import { AuthService } from './core/auth.service';
 import { PostService } from './posts/post.service';
@@ -32,7 +31,7 @@ import { MapsComponent } from './maps/maps.component';
 import { PostModalComponent } from './posts/post-modal/post-modal.component';
 import { SelectPlaceComponent } from './maps/select-place/select-place.component';
 
-
+// MODULES
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -44,6 +43,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule  } from '@angular/material';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatIconModule } from '@angular/material/icon';
 
 // locales
 import { LOCALE_ID } from '@angular/core';
@@ -89,7 +89,6 @@ export function getAuthHttp(http: Http) {
     HttpModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -103,7 +102,8 @@ export function getAuthHttp(http: Http) {
     MatNativeDateModule,
     MatDatepickerModule,
     MatMenuModule,
-    MatSliderModule
+    MatSliderModule,
+    MatIconModule
   ],
   providers: [AuthService,
       {

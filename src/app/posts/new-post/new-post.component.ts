@@ -46,7 +46,6 @@ export class NewPostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.currentTime);
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
     } else {
@@ -120,9 +119,8 @@ export class NewPostComponent implements OnInit {
         this.uploader.uploadAll();
         this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
           console.log(JSON.parse(response));
+          this.router.navigate(['/posts']);
         };
-        console.log('Success');
-        this.router.navigate(['/posts']);
       } else {
         alert('Išsirinkite kategorija');
       }
