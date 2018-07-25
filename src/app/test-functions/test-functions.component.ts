@@ -28,6 +28,8 @@ export class TestFunctionsComponent implements OnInit {
   postList: any[];
   size: any;
   allComments: any[];
+  dateFrom: Date;
+  dateTo: Date;
 
   ngOnInit() {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
@@ -53,9 +55,15 @@ export class TestFunctionsComponent implements OnInit {
     };
     if (!query.filter) {
       query.value = '';
+    };
+    if (this.dateFrom && this.dateTo) {
+      query.dateRange = {
+        from: this.dateFrom,
+        to: this.dateTo
+      };
     }
-    console.log(query)
-    this.http.post(`${url}/posts/filter`, query).subscribe(data => console.log(data.json()))
+    console.log(query);
+    this.http.post(`${url}/posts/filter`, query).subscribe(data => console.log(data.json()));
   }
 
   deleteComment(id, postID, lastID) {
@@ -63,12 +71,13 @@ export class TestFunctionsComponent implements OnInit {
   }
 
   report(id) {
-    this.http.post(`${url}/posts/post/${id}`, {}).subscribe(data => console.log(data.json()));
+    console.log('reported');
+    this.http.put(`${url}/posts/post/${id}`, {action: 'report'}).subscribe(data => console.log(data.json()));
   }
 
   like(id) {
-    console.log('liked')
-    this.http.get(`${url}/posts/post/${id}`).subscribe(data => console.log(data.json()))
+    console.log('liked');
+    this.http.put(`${url}/posts/post/${id}`, {action: 'like'}).subscribe(data => console.log(data.json()))
   }
 
   deletePost(id) {
@@ -103,14 +112,20 @@ export class TestFunctionsComponent implements OnInit {
       form.append('latitude', 55.754940702479175);
       form.append('longitude', 24.34982299804688);
       form.append('createdAt', Date.now());
-      form.append('category', category),
-        form.append('date', date)
+      form.append('category', category);
+      form.append('date', date);
     };
     this.uploader.setOptions(options);
     this.uploader.uploadAll();
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log(JSON.parse(response));
     };
+  }
+
+  getOnePost(id) {
+    this.http.get(`${url}/posts/post/${id}`).subscribe(post => {
+      console.log(post)
+    })
   }
 
   getPosts() {

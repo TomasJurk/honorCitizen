@@ -23,6 +23,8 @@
 	<option value="dogs">Dogs</option>
 	<option value="cats">Cats</option>
 </select>
+<input [(ngModel)]="dateFrom" type="date">
+<input [(ngModel)]="dateTo" type="date">
 <hr>
 <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
 <input [(ngModel)]="message" type="text">
@@ -34,6 +36,7 @@
 <button (click)="newPost()">upload Image</button>
 <hr>
 <div class="posts" *ngFor="let post of postList">
+	<button (click)="getOnePost(post._id)">getOnePost</button>
 	<span><b>Message: </b>{{post.description}}</span>
 	<button (click)="deletePost(post._id)">Delete post</button>
 	<img src="http://localhost:3000/{{post.image}}" alt="">
