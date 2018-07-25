@@ -11,8 +11,9 @@
 .navbar__container {
   display: flex;
   width: 80%;
+  max-width: 1140px;
   @media screen and (max-width : 576px) {
-    width: 80%;
+    width: 90%;
   }
 }
 

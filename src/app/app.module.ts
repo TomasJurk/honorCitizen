@@ -34,7 +34,7 @@ import { SelectPlaceComponent } from './maps/select-place/select-place.component
 
 
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -42,6 +42,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule  } from '@angular/material';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
 
 // locales
 import { LOCALE_ID } from '@angular/core';
@@ -51,7 +53,6 @@ import { FooterComponent } from './core/footer/footer.component';
 
 registerLocaleData(localePt, 'lt-BR');
 
-import {MatMenuModule} from '@angular/material/menu';
 
 export function getAuthHttp(http: Http) {
   return new AuthHttp(new AuthConfig({
@@ -101,7 +102,8 @@ export function getAuthHttp(http: Http) {
     MatSelectModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSliderModule
   ],
   providers: [AuthService,
       {

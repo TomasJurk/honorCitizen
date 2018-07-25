@@ -89,13 +89,10 @@ export class NewPostComponent implements OnInit {
   }
 
   newPost(el, time, date) {
-    const timeToSend = new Date();
-    date = date.split('-');
+    const timeToSend = new Date(date);
     time = time.split(':');
-    timeToSend.setFullYear(date[0], (date[1] - 1), date[2]);
     timeToSend.setHours(time[0]);
     timeToSend.setMinutes(time[1]);
-    console.log(timeToSend.getTime());
     if (this.size >= 6000000) {
       console.log('too big');
       return;
@@ -113,6 +110,7 @@ export class NewPostComponent implements OnInit {
         form.append('description', this.message);
         form.append('longitude', this.cordinates.longitude);
         form.append('latitude', this.cordinates.latitude);
+        form.append('date', timeToSend);
       };
       this.uploader.setOptions(options);
       this.uploader.uploadAll();

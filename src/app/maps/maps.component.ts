@@ -101,9 +101,9 @@ export class MapsComponent implements OnInit, AfterContentChecked {
   initMarks() {
     this.iconProp = {
       url: this.iconUrl,
-      size: new google.maps.Size(100, 60),
-      scaledSize: new google.maps.Size(70, 60),
-      origin: new google.maps.Point(-15, 0)
+      size: new google.maps.Size(25, 29),
+      scaledSize: new google.maps.Size(25, 29),
+      origin: new google.maps.Point(0, 0),
     },
 
     this.dropMarks();
@@ -111,7 +111,7 @@ export class MapsComponent implements OnInit, AfterContentChecked {
 
   dropMarks(i: number = 0) {
     for (i; i < this.posts.length; i++) {
-      this.addMarkerWithTimeout(this.posts[i], i * 300, i);
+      this.addMarkerWithTimeout(this.posts[i].location, i * 300, i);
     }
   }
 
@@ -125,11 +125,12 @@ export class MapsComponent implements OnInit, AfterContentChecked {
         })
       );
       const mark = new google.maps.Marker({
-        position: new google.maps.LatLng(data.coordinates.latitude, data.coordinates.longitude),
+        position: new google.maps.LatLng(data.coordinates[1], data.coordinates[0]),
         map: this.map,
         icon: this.iconProp,
         // must use optimized false for CSS
         optimized: false,
+        animation: google.maps.Animation.BOUNCE
             // animation: google.maps.Animation.BOUNCE
       });
       mark.addListener('click', () => {

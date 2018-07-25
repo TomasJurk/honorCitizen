@@ -21,6 +21,8 @@ export class SelectPlaceComponent implements OnInit {
   minZoom = 6;
   place;
   autocomplete;
+  iconProp;
+  iconUrl = './assets/map/mark.svg';
   selectMark;
   draggable = true;
   markerShow = false;
@@ -70,13 +72,20 @@ export class SelectPlaceComponent implements OnInit {
     });
   }
   initAutoComplete() {
-
+    this.iconProp = {
+      url: this.iconUrl,
+      size: new google.maps.Size(25, 29),
+      scaledSize: new google.maps.Size(25, 29),
+      origin: new google.maps.Point(0, 0),
+    },
     this.autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement);
     this.autocomplete.bindTo('bounds', this.map2);
     this.autocomplete.setOptions({strictBounds: true, types: ['geocode']});
     this.selectMark = new google.maps.Marker({
       map: this.map2,
       position: null,
+      icon: this.iconProp,
+      optimized: false,
       draggable: this.draggable
     });
     this.autocomplete.addListener('place_changed', () => {
@@ -155,6 +164,7 @@ export class SelectPlaceComponent implements OnInit {
     this.selectMark = new google.maps.Marker({
       position: new google.maps.LatLng(this.cords.latitude, this.cords.longitude),
       map: this.map2,
+      icon: this.iconProp,
       draggable: this.draggable,
 
     });

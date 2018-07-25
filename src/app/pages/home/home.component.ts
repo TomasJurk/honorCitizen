@@ -17,9 +17,9 @@ export class HomeComponent implements OnInit {
 
 
    getPosts() {
-    this._pS.getAllPosts().subscribe(
+    this._pS.filter('-createdAt', null, null, 8, 0).subscribe(
       data => {
-      this.posts = data.json().slice(0, 8);
+      this.posts = data.json();
     },
     error => console.log(error),
     () => console.log(this.posts)
