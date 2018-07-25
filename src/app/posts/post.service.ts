@@ -18,6 +18,26 @@ export class PostService {
   getAllPosts() {
     return this.http.get(`${this.url}/posts/post`);
   }
+  filter(sort, filter, value, limit, skip) {
+    const query: any = {
+      sort,
+      filter,
+      value,
+      limit,
+      skip
+    };
+    if (query.filter === 'location') {
+      query.value = {
+        longitude: 25.48141479492188,
+        latitude: 54.86396293985479,
+        distance: 100000
+      };
+    }
+    if (!query.filter) {
+      query.value = '';
+    }
+    return this.http.post(`${this.url}/posts/filter`, query);
+  }
 
   postComment(body: any) {
     return this.http.post(`${this.url}/comments/post`, body);

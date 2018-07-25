@@ -1,11 +1,45 @@
-<div class="container">
-  <div class="row">
-    <div *ngFor="let post of postList" class="col-sm-4">
-      <mat-card class="single-post">
-        <h2>{{post.user.fullName}}</h2>
-        <img src="http://176.223.143.125:3000/{{post.thumbnail}}" alt="Post picture" (click)="openPostDialog(post)">
-        <p>{{post.description}}</p>
-      </mat-card>
+<div class="posts__container">
+  <div class="posts__wrap">
+      <section class="posts__lists">
+        <div *ngFor="let post of postList" class="lists__post"
+        [style.background]="'url(http://176.223.143.125:3000/'+ post.thumbnail + ')'"
+        [style.background-repeat]="'no-repeat'"
+        [style.background-position]="'center'"
+        [style.background-size]="'cover'"
+        (click)="openPostDialog(post)"></div>
+      </section>
+      <aside class="posts__filters">
+        <div class="field__range">
+          <span class="range__from">
+            10 km
+          </span>
+          <span class="range__to">
+              500 km
+          </span>
+            <mat-slider
+            class="range__slider"
+            thumbLabel
+            [displayWith]="formatRange"
+            tickInterval="1"
+            min="10"
+            max="500"></mat-slider>
+        </div>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Miestas">
+          </mat-form-field>
+        <div class="field__date">
+            <mat-form-field class="date__from">
+                <input matInput [matDatepicker]="fromPicker" #dateInput [value]="fromDate" placeholder="Data nuo">
+                <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromPicker></mat-datepicker>              </mat-form-field>
+              <mat-form-field class="date__to">
+                  <input matInput [matDatepicker]="picker" #dateInputTo [value]="toDate" placeholder="Data iki">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+        </div>
+        <button class="btn">Search</button>
+      </aside>
     </div>
-  </div>
 </div>
+

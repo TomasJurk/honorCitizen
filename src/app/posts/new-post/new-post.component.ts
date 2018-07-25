@@ -89,10 +89,8 @@ export class NewPostComponent implements OnInit {
   }
 
   newPost(el, time, date) {
-    const timeToSend = new Date();
-    date = date.split('-');
+    const timeToSend = new Date(date);
     time = time.split(':');
-    timeToSend.setFullYear(date[0], (date[1] - 1), date[2]);
     timeToSend.setHours(time[0]);
     timeToSend.setMinutes(time[1]);
     if (this.size >= 6000000) {
@@ -105,13 +103,14 @@ export class NewPostComponent implements OnInit {
     const id = JSON.parse(localStorage.user)._id;
     if (id) {
       if (this.selectedCategory) {
+        console.log(timeToSend)
         const options: FileUploaderOptions = {};
         const token = localStorage.id_token;
         options.headers = [{ name: 'x-auth-token', value: token }];
         this.uploader.onBuildItemForm = (item, form) => {
           form.append('user', id);
           form.append('description', this.message);
-          form.append('date', timeToSend.getTime());
+          form.append('date', timeToSend);
           form.append('category', this.selectedCategory);
           form.append('longitude', this.cordinates.longitude);
           form.append('latitude', this.cordinates.latitude);
