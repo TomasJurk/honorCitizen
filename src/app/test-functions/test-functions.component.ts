@@ -128,7 +128,7 @@ export class TestFunctionsComponent implements OnInit {
 
   getOnePost(id) {
     this.http.get(`${url}/posts/post/${id}`).subscribe(post => {
-      console.log(post)
+      console.log(post.json())
     })
   }
 
@@ -156,8 +156,7 @@ export class TestFunctionsComponent implements OnInit {
   emailSignup() {
     const userData = {
       email: 'email123@email.com',
-      fullName: 'Name',
-      photoURL: '',
+      name: 'Name',
       password: 'password',
     };
     this._auth.emailSignup(userData).subscribe(d => console.log(d));
