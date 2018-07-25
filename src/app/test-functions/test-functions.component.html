@@ -1,4 +1,5 @@
-<!-- <button (click)='get()'>GET</button> -->
+<button (click)='changePassword(newPass.value)'>changePassword</button>
+<input #newPass type="text">
 <button (click)='fbLogin()'>fbLogin</button>
 <button (click)='logout()'>logout</button>
 <button (click)='isLoggedIn()'>isLoggedIn</button>
@@ -35,17 +36,18 @@
 <input [(ngModel)]="date" type="date">
 <button (click)="newPost()">upload Image</button>
 <hr>
+<img *ngIf="user" src="{{url+ '/' + user.photoURL}}" alt="">
 <div class="posts" *ngFor="let post of postList">
 	<button (click)="getOnePost(post._id)">getOnePost</button>
 	<span><b>Message: </b>{{post.description}}</span>
 	<button (click)="deletePost(post._id)">Delete post</button>
-	<img src="http://localhost:3000/{{post.image}}" alt="">
+	<img src="{{url}}/{{post.image}}" alt="">
 	<button (click)="like(post._id)">like</button>
 	<hr>
 	<b>Comments:</b>
 	<div *ngIf="post.lastComment" class="last-comment">
 		<b>Last comment:</b>
-		<img src="{{post.lastComment.userPhoto}}" alt="">
+		<!-- <img src="{{url + post.lastComment.user.photoURL}}" alt=""> -->
 		<strong>{{post.lastComment.username}}</strong>
 		<p>{{post.lastComment.message}}</p>
 	</div>

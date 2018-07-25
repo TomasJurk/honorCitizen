@@ -11,7 +11,7 @@ import url from '../url';
   styleUrls: ['./test-functions.component.scss']
 })
 export class TestFunctionsComponent implements OnInit {
-
+	url = url;
   public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
 
   constructor(
@@ -36,6 +36,10 @@ export class TestFunctionsComponent implements OnInit {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
     }
+  }
+
+  changePassword(newPassword) {
+  	this.http.put(`${url}/users/auth/changePassword`, {newPassword}).subscribe(a => console.log(a))
   }
 
   filter(sort, filter, value, limit, skip) {
