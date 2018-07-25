@@ -1,4 +1,4 @@
-<main class="home__container">
+<div class="home__container">
   <div class="map__wrapper">
     <app-maps  *ngIf="posts" [posts]="posts"></app-maps>
     <mat-card class="home__card">
@@ -52,15 +52,15 @@
       <div class="item__stats">
         <div class="stats__field">
           <img src="./assets/images/like.svg" alt="">
-          <small class="field__text">123</small>
+          <small class="field__text">{{post.likes.count}}</small>
         </div>
         <div class="stats__field">
-            <img src="./assets/images/coment.svg" alt="">
-            <small class="field__text">123</small>
+            <img src="./assets/images/comment.svg" alt="">
+            <small class="field__text">{{post.commentCount}}</small>
           </div>
       </div>
       </div>
     </section>
     <button routerLink="posts" mat-button class="btn">Daugiau</button>
   </div>
-</main>
+</div>

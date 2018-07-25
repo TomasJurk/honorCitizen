@@ -7,26 +7,60 @@
   width: 100%;
   justify-content: center;
 }
+
 .navbar__container {
   display: flex;
   width: 80%;
+  max-width: 1140px;
+  @media screen and (max-width : 576px) {
+    width: 90%;
+  }
 }
+
 .navbar__logo{
   font-size: 20px;
   font-weight: 700;
 }
-.btn {
 
+.btn {
   background-color: #ff5873;
 }
+
 .search__input {
   background-color: #f2f2f2;
   @media screen and (max-width : 576px) {
     display: none;
   }
 }
+.profile__menu {
+  color: #c0c0c8;
+  .menu__icon svg use {
+    fill: #c0c0c8;
+
+  }
+}
+.profile__menu:hover, .profile__menu.active {
+  color: #ff2469;
+  .menu__icon svg use {
+    fill: #ff2469;
+
+  }
+}
+
+.menu__profile__img--circle {
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #707070;
+  border-radius: 50%;
+  img {
+    width: auto;
+    height: 100%;
+  }
+}
 .sign-in-field {
   max-width: 100px;
   margin: 0 10px;
 }
+
 

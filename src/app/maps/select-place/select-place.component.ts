@@ -21,9 +21,12 @@ export class SelectPlaceComponent implements OnInit {
   minZoom = 6;
   place;
   autocomplete;
+  iconProp;
+  iconUrl = './assets/map/mark.svg';
   selectMark;
   draggable = true;
   markerShow = false;
+  styles;
 
   @Output() sendCoordinates = new EventEmitter<object>();
 
@@ -34,9 +37,17 @@ export class SelectPlaceComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.initMap();
-
+    this.http.get('./assets/map/styles.json')
+    .subscribe( response => {
+                  this.styles = response;
+                },
+                error => console.log(error),
+                () => {
+                  this.initMap();
+                }
+              );
   }
+
   initMap() {
 
     this.mapProp = {
@@ -46,7 +57,7 @@ export class SelectPlaceComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       mapTypeControl: false,
       streetViewControl: false,
-      styles: this.http.get('./assets/maps/styles.json')
+      styles: this.styles
 
     };
 
@@ -61,13 +72,20 @@ export class SelectPlaceComponent implements OnInit {
     });
   }
   initAutoComplete() {
-
+    this.iconProp = {
+      url: this.iconUrl,
+      size: new google.maps.Size(25, 29),
+      scaledSize: new google.maps.Size(25, 29),
+      origin: new google.maps.Point(0, 0),
+    },
     this.autocomplete = new google.maps.places.Autocomplete(this.input.nativeElement);
     this.autocomplete.bindTo('bounds', this.map2);
     this.autocomplete.setOptions({strictBounds: true, types: ['geocode']});
     this.selectMark = new google.maps.Marker({
       map: this.map2,
       position: null,
+      icon: this.iconProp,
+      optimized: false,
       draggable: this.draggable
     });
     this.autocomplete.addListener('place_changed', () => {
@@ -137,15 +155,16 @@ export class SelectPlaceComponent implements OnInit {
         latitude: this.map2.getCenter().lat(),
         longitude: this.map2.getCenter().lng()
         };
-      }
+      } else {
       this.cords = this.cordinates;
-
+    }
     if (this.selectMark && this.selectMark.setMap) {
       this.markerShow = false;
     }
     this.selectMark = new google.maps.Marker({
       position: new google.maps.LatLng(this.cords.latitude, this.cords.longitude),
       map: this.map2,
+      icon: this.iconProp,
       draggable: this.draggable,
 
     });
@@ -154,7 +173,7 @@ export class SelectPlaceComponent implements OnInit {
     // this.map2.setZoom(10);
     if (!this.draggable) {
       this.markerShow = true;
-      this.map2.setZoom(13);  // Why 17? Because it looks good.
+      this.map2.setZoom(13);
       this.map2.addListener('center_changed', () => {
         if (this.selectMark && this.selectMark.setMap) {
             this.selectMark.setPosition(new google.maps.LatLng(this.map2.getCenter().lat(), this.map2.getCenter().lng()));
@@ -171,7 +190,7 @@ export class SelectPlaceComponent implements OnInit {
     }
   }
   emitCords() {
-    this.cords = {
+      this.cords = {
       latitude: this.selectMark.getPosition().lat(),
       longitude: this.selectMark.getPosition().lng()
      };

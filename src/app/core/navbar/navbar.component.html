@@ -1,17 +1,35 @@
 <mat-toolbar  class="navbar">
 
-  <div *ngIf="!user"  class="navbar__container">
-     <span class="spacer"></span>
-     <button mat-button (click)="openLoginDialog()">Sign In</button>
-     <button mat-button (click)="openNewUserDialog()">New user</button>
-  </div>
+    <div *ngIf="!user"  class="navbar__container">
+      <input class="search__input" placeholder="Placeholder">
+      <span class="spacer"></span>
+      <button mat-button (click)="openLoginDialog()">Sign In</button>
+      <button mat-button (click)="openNewUserDialog()">New user</button>
+    </div>
 
-  <div *ngIf="user" class="navbar__container">
-    <div class="navbar__logo">Logo</div>
-    <button mat-button class="btn">Įkelk</button>
-    <input class="search__input" placeholder="Placeholder">
-    <span class="spacer"></span>
-    <button mat-button (click)="logOut()">Log Out</button>
-  </div>
+    <div *ngIf="user" class="navbar__container">
+      <div class="navbar__logo">Logo</div>
+      <button mat-button class="btn" routerLink="post/new">Įkelk</button>
+      <span class="spacer"></span>
+      <input class="search__input" placeholder="Placeholder">
+      <button mat-button [matMenuTriggerFor]="appMenu" class="profile__menu">
+        {{user.fullName}}
+        <span class="menu__icon">
+
+        <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="15"><defs><path id="a" d="M1483.85 57.93L1472 46.43l3.53-3.43 8.32 8.08 8.32-8.08 3.53 3.43z"/></defs><use fill="#ff5873" transform="translate(-1472 -43)" xlink:href="#a"/></svg>
+        </span>
+        <div class="menu__profile__img--circle">
+          <img *ngIf='user.photoURL' src="http://176.223.143.125:3000/+'{{user.photoURL}}'" alt="">
+          <img *ngIf='!user.photoURL' src="./assets/images/profileIcon.svg" alt="">
+        </div>
+      </button>
+      <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Help</button>
+        <button mat-menu-item (click)="logOut()">Log Out</button>
+
+      </mat-menu>
+
+    </div>
 
 </mat-toolbar>

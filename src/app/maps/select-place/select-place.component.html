@@ -1,11 +1,10 @@
 <div class="pac-card" id="pac-card">
-  <div>
-    <button (click)="getLocation()">Get current location</button>
+  <div class="location__input">
+    <input #acInput type="text" matInput class="input__field"
+    placeholder="Enter a location">
+    <button matButton class="location__btn" (click)="getLocation()"><img class="location__icon" src="./assets/map/location.svg" alt="location svg"><small>mano vieta</small></button>
   </div>
-  <div id="pac-container">
-    <input #acInput type="text"
-        placeholder="Enter a location">
-  </div>
+
 </div>
 <div #selectMap class="selectContainer" (click)="addMarker()">
 </div>
