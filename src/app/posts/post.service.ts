@@ -26,13 +26,6 @@ export class PostService {
       limit,
       skip
     };
-    if (query.filter === 'location') {
-      query.value = {
-        longitude: 25.48141479492188,
-        latitude: 54.86396293985479,
-        distance: 100000
-      };
-    }
     if (!query.filter) {
       query.value = '';
     }

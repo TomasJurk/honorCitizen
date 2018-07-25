@@ -6,6 +6,7 @@
         [style.background-repeat]="'no-repeat'"
         [style.background-position]="'center'"
         [style.background-size]="'cover'"
+
         (click)="openPostDialog(post)"></div>
       </section>
       <aside class="posts__filters">
@@ -14,18 +15,19 @@
             10 km
           </span>
           <span class="range__to">
-              500 km
+              380 km
           </span>
             <mat-slider
+            #range
             class="range__slider"
             thumbLabel
             [displayWith]="formatRange"
             tickInterval="1"
             min="10"
-            max="500"></mat-slider>
+            max="380"></mat-slider>
         </div>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Miestas">
+          <input #acInput matInput placeholder="Miestas">
           </mat-form-field>
         <div class="field__date">
             <mat-form-field class="date__from">
@@ -36,10 +38,11 @@
                   <input matInput [matDatepicker]="picker" #dateInputTo [value]="toDate" placeholder="Data iki">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
+              </mat-form-field>
         </div>
-        <button class="btn">Search</button>
+        <div *ngFor="let cat of categories" >{{cat.viewValue}}</div>
+        <button (click)="sendFilters(range)" class="btn">Search</button>
       </aside>
-    </div>
+  </div>
 </div>
 
