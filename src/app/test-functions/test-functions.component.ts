@@ -11,7 +11,7 @@ import url from '../url';
   styleUrls: ['./test-functions.component.scss']
 })
 export class TestFunctionsComponent implements OnInit {
-	url = url;
+  url = url;
   public uploader: FileUploader = new FileUploader({ url: `${url}/posts/post`, itemAlias: 'photo' });
 
   constructor(
@@ -39,49 +39,53 @@ export class TestFunctionsComponent implements OnInit {
   }
 
   changePassword(newPassword) {
-  	this.http.put(`${url}/users/auth/changePassword`, {newPassword}).subscribe(a => console.log(a))
+    this.http.put(`${url}/users/auth/changePassword`, { newPassword }).subscribe(a => console.log(a))
   }
 
-  filter(sort, filter, value, limit, skip) {
-    const query: any = {
-      sort,
-      filter,
-      value,
-      limit,
-      skip
+  filter() {
+    const query: any = {};
+    query.sort = '-createdAt';
+    query.categories = ['cats', 'dogs'];
+    query.location = {
+      longitude: 24,
+      latitude: 55,
+      distance: 100000
     };
-    if (query.filter === 'location') {
-      query.value = {
-         longitude: 25.48141479492188,
-         latitude: 54.86396293985479,
-         distance: 100000
-      }
-    };
-    if (!query.filter) {
-      query.value = '';
-    };
-    if (this.dateFrom && this.dateTo) {
-      query.dateRange = {
-        from: this.dateFrom,
-        to: this.dateTo
-      };
-    }
+    query.limit = 0;
+    query.skip = 0;
     console.log(query);
+    // this.http.post(`${url}/posts/filter/${value}`, query).subscribe(data => console.log(data.json()))
     this.http.post(`${url}/posts/filter`, query).subscribe(data => console.log(data.json()));
   }
 
-  deleteComment(id, postID, lastID) {
-    this.http.post(`${url}/comments/${id}`, { postID, lastID }).subscribe(data => console.log(data.json()));
+  filterByUser() {
+    const query: any = {};
+    query.sort = '-createdAt';
+    query.categories = ['mongoose'];
+    query.location = {
+      longitude: 24,
+      latitude: 55,
+      distance: 100000
+    };
+    query.limit = 0;
+    query.skip = 0;
+    console.log(query);
+    this.http.post(`${url}/posts/filter/${this.user['_id']}`, query).subscribe(data => console.log(data.json()))
+    // this.http.post(`${url}/posts/filter`, query).subscribe(data => console.log(data.json()));
+  }
+
+  deleteComment(id, postID, lastID, authorID) {
+    this.http.post(`${url}/comments/${id}`, { postID, lastID, authorID }).subscribe(data => console.log(data.json()));
   }
 
   report(id) {
     console.log('reported');
-    this.http.put(`${url}/posts/post/${id}`, {action: 'report'}).subscribe(data => console.log(data.json()));
+    this.http.put(`${url}/posts/post/${id}`, { action: 'report' }).subscribe(data => console.log(data.json()));
   }
 
   like(id) {
     console.log('liked');
-    this.http.put(`${url}/posts/post/${id}`, {action: 'like'}).subscribe(data => console.log(data.json()))
+    this.http.put(`${url}/posts/post/${id}`, { action: 'like' }).subscribe(data => console.log(data.json()))
   }
 
   deletePost(id) {
