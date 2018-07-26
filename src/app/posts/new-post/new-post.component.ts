@@ -103,7 +103,6 @@ export class NewPostComponent implements OnInit {
     const id = JSON.parse(localStorage.user)._id;
     if (id) {
       if (this.selectedCategory) {
-        console.log(timeToSend)
         const options: FileUploaderOptions = {};
         const token = localStorage.id_token;
         options.headers = [{ name: 'x-auth-token', value: token }];
