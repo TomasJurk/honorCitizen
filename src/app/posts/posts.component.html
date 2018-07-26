@@ -45,7 +45,12 @@
             <mat-option *ngFor="let cat of categories" [value]="cat.value">{{cat.viewValue}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <button (click)="sendFilters(range, cat)" class="btn">Search</button>
+        <mat-form-field>
+          <mat-select placeholder="Rikiuoti pagal" #sor >
+            <mat-option *ngFor="let sor of sortList" [value]="sor.value">{{sor.viewValue}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button (click)="sendFilters(sor, range, cat)" class="btn">Search</button>
       </aside>
   </div>
 </div>

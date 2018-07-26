@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material';
 import { PostService } from './post.service';
 import { PostModalComponent } from './post-modal/post-modal.component';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
@@ -23,6 +25,12 @@ export class PostsComponent implements OnInit {
     {value: 'nusikaltimai-3', viewValue: 'Nusikaltimai prieš asmenį'},
     {value: 'kiti-4', viewValue: 'Kiti nusikaltimai'}
   ];
+  sortList: object[] = [
+    {value: 'asc', viewValue: 'Naujausi viršuje'},
+    {value: 'dsc', viewValue: 'Seniausi viršuje'},
+    {value: 'com', viewValue: 'Labiausiai komentuojami'},
+    {value: 'lik', viewValue: 'Mėgstamiausi'},
+  ];
   filterParams = {
     sort: null,
     filter: null,
@@ -33,6 +41,7 @@ export class PostsComponent implements OnInit {
   constructor(
     private _pS: PostService,
     private aR: ActivatedRoute,
+    private location: Location,
     public postModal: MatDialog
   ) { }
 
@@ -95,7 +104,9 @@ export class PostsComponent implements OnInit {
      if (params[4]) {
       this.filterParams.skip = params[4];
     }
-  }
+  }else (
+
+  )
      this._pS.filter(this.filterParams.sort,
                      this.filterParams.filter,
                      this.filterParams.value,
@@ -129,6 +140,7 @@ export class PostsComponent implements OnInit {
       this.openPostDialog(this.postList[0]);
   }
   sendFilters(range, cat) {
+    let params = [n, n, n, n, n, n];
     console.log(range.value);
     console.log(cat.value);
     const place = this.autocomplete.getPlace();
@@ -140,6 +152,7 @@ export class PostsComponent implements OnInit {
         distance: range.value * 1000
       };
     }
+
    this.getPostsByFilters();
   }
   formatRange(value: number | null) {
