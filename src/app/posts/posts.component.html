@@ -40,7 +40,7 @@
                   <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
         </div>
-        <div *ngFor="let cat of categories" >{{cat.viewValue}}</div>
+        <div *ngFor="let cat of categories" > {{ cat.viewValue }} </div>
         <button (click)="sendFilters(range)" class="btn">Search</button>
       </aside>
   </div>

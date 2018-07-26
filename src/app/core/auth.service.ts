@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
+import { JwtHelper } from 'angular2-jwt';
 
 declare const FB: any;
 
@@ -24,7 +25,11 @@ export class AuthService {
       this.user = JSON.parse(localStorage.user);
     }
   }
-
+  isExpired() {
+    const helper = new JwtHelper();
+    const isExpired = helper.isTokenExpired(localStorage.id_token);
+    return isExpired;
+  }
   emailSignup(user) {
     const userData = {
       email: user.email,

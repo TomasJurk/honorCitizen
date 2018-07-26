@@ -75,15 +75,15 @@ export class PostsComponent implements OnInit {
      }
      if (params[1] === 'loc') {
        const locationParams = params[2].split('&');
-       filterParams.filter = 'location'
-       filterParams.value = {
+       this.filterParams.filter = 'location';
+       this.filterParams.value = {
          latitude: locationParams[0],
          longitude: locationParams[1],
          distance: locationParams[0]
        };
      } else if (params[1] === 'usr') {
-      filterParams.filter = 'user';
-      filterParams.value = params[2];
+      this.filterParams.filter = 'user';
+      this.filterParams.value = params[2];
      } else if (params[1] === 'cat') {
       this.filterParams.filter = 'category';
       this.filterParams.value = params[2];
