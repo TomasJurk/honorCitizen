@@ -16,22 +16,41 @@
       {{data.descr}}
     </p>
     <div class="feedback_icons">
-        <svg id="SVGDoc" width="38" height="34" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:avocode="https://avocode.com/" viewBox="0 0 38 34"><defs><path d="M725,943.23821h-9.41176v-9.41177c0,-1.03959 -0.84276,-1.88235 -1.88235,-1.88235h-1.88235l-8.16051,10.11913c-0.80966,1.00406 -1.25122,2.25502 -1.25126,3.54487v14.57129c0,2.07918 1.68552,3.7647 3.76471,3.7647h12.11259c2.14983,0 4.11315,-1.2207 5.06423,-3.14868l5.41142,-10.96897v-2.82353c0,-2.07919 -1.68552,-3.76471 -3.76471,-3.76471z" id="Path-0"/><path d="M693,963.94409v-18.82353h5.64706v18.82353z" id="Path-1"/></defs><desc>Generated with Avocode.</desc><g transform="matrix(1,0,0,1,-692,-931)"><g><title>Path 201</title><use xlink:href="#Path-0" fill-opacity="0" fill="#ffffff" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g><g><title>Rectangle 1458</title><use xlink:href="#Path-1" fill-opacity="0" fill="#ffffff" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g></g></svg>
+      <div class="like_feedback">
+        <div *ngIf="!postLiked" (click)="like(data.id)" class="like_icon">
+          <svg id="SVGDoc" width="38" height="34" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:avocode="https://avocode.com/" viewBox="0 0 38 34"><defs><path d="M725,943.23821h-9.41176v-9.41177c0,-1.03959 -0.84276,-1.88235 -1.88235,-1.88235h-1.88235l-8.16051,10.11913c-0.80966,1.00406 -1.25122,2.25502 -1.25126,3.54487v14.57129c0,2.07918 1.68552,3.7647 3.76471,3.7647h12.11259c2.14983,0 4.11315,-1.2207 5.06423,-3.14868l5.41142,-10.96897v-2.82353c0,-2.07919 -1.68552,-3.76471 -3.76471,-3.76471z" id="Path-0"/><path d="M693,963.94409v-18.82353h5.64706v18.82353z" id="Path-1"/></defs><desc>Generated with Avocode.</desc><g transform="matrix(1,0,0,1,-692,-931)"><g><title>Path 201</title><use xlink:href="#Path-0" fill-opacity="0" fill="#ffffff" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g><g><title>Rectangle 1458</title><use xlink:href="#Path-1" fill-opacity="0" fill="#ffffff" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g></g></svg>
+        </div>
+        <div *ngIf="postLiked" (click)="like(data.id)" class="like_icon">
+          <svg id="SVGDoc" width="38" height="34" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:avocode="https://avocode.com/" viewBox="0 0 38 34"><defs><path d="M725,943.23821h-9.41176v-9.41177c0,-1.03959 -0.84276,-1.88235 -1.88235,-1.88235h-1.88235l-8.16051,10.11913c-0.80966,1.00406 -1.25122,2.25502 -1.25126,3.54487v14.57129c0,2.07918 1.68552,3.7647 3.76471,3.7647h12.11259c2.14983,0 4.11315,-1.2207 5.06423,-3.14868l5.41142,-10.96897v-2.82353c0,-2.07919 -1.68552,-3.76471 -3.76471,-3.76471z" id="Path-0"/><path d="M693,963.94409v-18.82353h5.64706v18.82353z" id="Path-1"/></defs><desc>Generated with Avocode.</desc><g transform="matrix(1,0,0,1,-692,-931)"><g><title>Path 201</title><use xlink:href="#Path-0" fill-opacity="1" fill="#ff5873" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g><g><title>Rectangle 1458</title><use xlink:href="#Path-1" fill-opacity="1" fill="#ff5873" stroke-dashoffset="0" stroke-linejoin="miter" stroke-linecap="butt" stroke-opacity="1" stroke="#ff5873" stroke-miterlimit="50" stroke-width="1"/></g></g></svg>
+        </div>
+        <div class="likes_count">
+          <span>{{allLikes?.count}}</span>
+        </div>
+      </div>
+      <div class="comments_feedback">
+        <div class="comments_icon">
+          <!-- <img src="../../../assets/images/comments_pink.svg" alt=""> -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="37" height="32"><defs><image width="37" height="32" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAgCAMAAACijUGCAAABI1BMVEX/////6Oz/t8P/iZz/d43/bIT/YHr/WnX/ZX7/cIf/fJH/lab/ucX/3uP//f3/7/L/r7z/con/WHP/sL3/9vj/5+v/j6H/WXT/YXr/rbr/+/z//Pz/W3b/3eL/8/X/eI3/sr//dYv/tcH/u8b/orH/2d//epD//v7/gJT/yNH/hpr/prX/7vH/ztb/cYj/W3X/pbP/Z4D/rbv/fpL/wMr/lqf/0tn/zNT/X3n/+Pn/l6j/qLb/2uD/4uf/Zn//9vf/w83/Xnj/2N7/vcf/XHb/197/rrv/1tz/q7j/mKn/9ff/+vv/Z3//kaL/2eD/sb3/f5T/6ez/XXf/zNX/ucT/pLP/hJj/mqv/xM7/9Pb/ZH3/nKz/8PP/oLD/gJX/vMf/5ends2SCAAABFUlEQVR4nI3UZ1PCQBCA4UVRE0DFVUEgAmJBKQoIKjaKXUAQG0XE//8ruBAYLuVy9369Z5KZZPcAqBxz886FxSVJdrk9yytg1ap3Demk9Q2T2fT50dhWIKgzoYBiMmryNoXCEUujFp2hHSZCjE1QkP0ktV1N7dkiVBwq2rdHiAdxog55Co/Ih+IiTAAk+QpTkBBQaTgWUB44EVAZyAqoHJwKqDwUBNQZnPPRRRHiElddkj90xVXXRBVlDnKPJ+fGepqn3Za0ASvboUp1OtJ3bHT/MFuPR+brnqglemagl1cK1epWRGm86Za2aSb+VjSs3/739uSonfn4/Gp8+36Sna7xigg5NdPr/xqPqAbkfvnrD/9tyAiyLE+JCdeGLAAAAABJRU5ErkJggg=="/></defs><style></style><use id="Layer 2" href="#img1"/></svg>
+        </div>
+        <div class="comments_count">
+          <span>{{comments?.length}}</span>
+        </div>
+      </div>
     </div>
   </div>
   <div class="comments-container">
     <div *ngFor="let comment of comments" class="comment">
-      <img  class="user_photo" src="" alt="">
+      <img  class="user_photo" src="http://176.223.143.125:3000/{{comment.user.photoURL}}" alt="">
       <div class="comment_content">
         <h5>{{comment.user.fullName}}</h5>
         <p>{{comment.message}}</p>
-        <button tabindex="-1" class="delete_btn" mat-button>
+        <button *ngIf="currentUser == comment.user.id" (click)="deleteComment(comment._id, data.id, lastCommentId, comment.user.id)" tabindex="-1" class="delete_btn" mat-button>
           <i class="material-icons">delete_outline</i>
         </button>
       </div>
     </div>
-    <div class="comment">
-      <img class="user_photo" src="" alt="">
+    <div *ngIf="currentUser" class="comment">
+      <img class="user_photo" src="http://176.223.143.125:3000/{{data.profileImg}}" alt="">
       <mat-card class="comment_input">
         <textarea tabindex="-1" placeholder="Enter your comment" [(ngModel)]="writeComment" type="text"></textarea>
         <button tabindex="-1" (click)="postComment(writeComment)" mat-button>post</button>

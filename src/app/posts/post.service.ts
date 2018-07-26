@@ -18,6 +18,11 @@ export class PostService {
   getAllPosts() {
     return this.http.get(`${this.url}/posts/post`);
   }
+
+  getOnePost(id) {
+    return this.http.get(`${this.url}/posts/post/${id}`);
+  }
+
   filter(sort, filter, value, limit, skip) {
     const query: any = {
       sort,
@@ -32,12 +37,20 @@ export class PostService {
     return this.http.post(`${this.url}/posts/filter`, query);
   }
 
-  postComment(body: any) {
-    return this.http.post(`${this.url}/comments/post`, body);
+  postLike(id) {
+    return this.http.put(`${this.url}/posts/post/${id}`, { action: 'like' });
   }
 
   getAllComments(postid: string) {
     return this.http.get(`${this.url}/comments/all/` + postid);
+  }
+
+  postComment(body: any) {
+    return this.http.post(`${this.url}/comments/post`, body);
+  }
+
+  deleteComment(id, postID, lastID, authorID) {
+    return this.http.post(`${this.url}/comments/${id}`, { postID, lastID, authorID });
   }
 
   deletePost(postid: string) {

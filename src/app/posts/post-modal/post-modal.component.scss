@@ -51,6 +51,13 @@ header {
     margin: 0;
     margin-bottom: 27px;
   }
+  .feedback_icons {
+    display: flex;
+  }
+  .like_icon {
+    cursor: pointer;
+    width: fit-content;
+  }
 }
 
 .comments-container {
@@ -62,7 +69,10 @@ header {
   display: flex;
   margin-bottom: 20px;
   img {
-    background-color: blue;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
   }
   .comment_content {
     width: calc(100% - 62px);

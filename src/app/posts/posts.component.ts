@@ -52,7 +52,8 @@ export class PostsComponent implements OnInit {
         id: post._id,
         name: post.user.fullName,
         descr: post.description,
-        img: post.image
+        img: post.image,
+        profileImg: post.user.photoURL
       }
     });
   }
