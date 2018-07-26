@@ -18,13 +18,14 @@ export class PostService {
   getAllPosts() {
     return this.http.get(`${this.url}/posts/post`);
   }
-  filter(sort, filter, value, limit, skip) {
+  filter(sort, filter, value, limit, skip, range) {
     const query: any = {
       sort,
       filter,
       value,
       limit,
-      skip
+      skip,
+      range
     };
     if (!query.filter) {
       query.value = '';
