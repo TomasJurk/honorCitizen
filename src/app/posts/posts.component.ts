@@ -127,8 +127,9 @@ export class PostsComponent implements OnInit {
     console.log(id);
       this.openPostDialog(this.postList[0]);
   }
-  sendFilters(range, ) {
+  sendFilters(range, cat) {
     console.log(range.value);
+    console.log(cat.value);
     const place = this.autocomplete.getPlace();
     if (place) {
       this.filterParams.filter = 'location';
