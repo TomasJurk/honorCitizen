@@ -28,6 +28,7 @@ export class NewPostComponent implements OnInit {
     {value: 'nusikaltimai-3', viewValue: 'Nusikaltimai prieš asmenį'},
     {value: 'kiti-4', viewValue: 'Kiti nusikaltimai'}
   ];
+
   currentTime: any = new Date();
   selectedCategory: string;
   message: string;
@@ -38,12 +39,13 @@ export class NewPostComponent implements OnInit {
 
   imgUrl: any;
   imgStyle: any;
+
   constructor(
     public loginDialog: MatDialog,
     public router: Router,
     private _aS: AuthService,
     private _pS: PostService
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (localStorage.user) {
@@ -65,7 +67,6 @@ export class NewPostComponent implements OnInit {
     });
   }
 
-
   getFileSize(file, el) {
     const reader = new FileReader();
     reader.onload = (data) => {
@@ -84,6 +85,7 @@ export class NewPostComponent implements OnInit {
       console.log('incorrect file type');
     }
   }
+
   getCordinates(obj) {
     this.cordinates = obj;
   }

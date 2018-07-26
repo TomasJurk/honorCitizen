@@ -29,6 +29,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.getUser();
+    if (this.user && this._aS.isExpired()) {
+      this.openLoginDialog();
+    }
   }
 
   openNewUserDialog() {
