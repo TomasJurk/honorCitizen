@@ -24,4 +24,11 @@ export class LoginModalComponent implements OnInit {
       }
     });
   }
+
+  fbLogin() {
+    this._aS.fbLogin().then(response => {
+      console.log(response);
+      this.dialogRef.close('');
+    });
+  }
 }

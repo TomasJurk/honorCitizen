@@ -10,5 +10,8 @@
           </mat-form-field>
         <button mat-button [disabled]="!email.value || !password.value" type="submit">Sing In</button>
       </form>
+      <button (click)="fbLogin()" class="loginBtn loginBtn--facebook">
+        Login with Facebook
+      </button>
   </div>
 </mat-card>
