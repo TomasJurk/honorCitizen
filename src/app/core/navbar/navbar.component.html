@@ -18,7 +18,8 @@
 
         <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="15"><defs><path id="a" d="M1483.85 57.93L1472 46.43l3.53-3.43 8.32 8.08 8.32-8.08 3.53 3.43z"/></defs><use fill="#ff5873" transform="translate(-1472 -43)" xlink:href="#a"/></svg>
         </span>
-        <img class="menu__profile__img--circle" src="http://176.223.143.125:3000/{{user.photoURL}}" alt="">
+        <img *ngIf="user.facebook" class="menu__profile__img--circle" src="{{user.photoURL}}" alt="">
+        <img *ngIf="!user.facebook" class="menu__profile__img--circle" src="http://176.223.143.125:3000/{{user.photoURL}}" alt="">
       </button>
       <mat-menu #appMenu="matMenu" yPosition="below" [overlapTrigger]="false">
         <button routerLink="/profile" mat-menu-item>Profile</button>
