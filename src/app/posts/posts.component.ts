@@ -104,9 +104,7 @@ export class PostsComponent implements OnInit {
      if (params[4]) {
       this.filterParams.skip = params[4];
     }
-  }else (
-
-  )
+  } 
      this._pS.filter(this.filterParams.sort,
                      this.filterParams.filter,
                      this.filterParams.value,
@@ -140,7 +138,6 @@ export class PostsComponent implements OnInit {
       this.openPostDialog(this.postList[0]);
   }
   sendFilters(range, cat) {
-    let params = [n, n, n, n, n, n];
     console.log(range.value);
     console.log(cat.value);
     const place = this.autocomplete.getPlace();
@@ -152,7 +149,6 @@ export class PostsComponent implements OnInit {
         distance: range.value * 1000
       };
     }
-
    this.getPostsByFilters();
   }
   formatRange(value: number | null) {

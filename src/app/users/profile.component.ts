@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-modal.component';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public editProfileDialog: MatDialog,
+    private _aS: AuthService
+  ) { }
 
   ngOnInit() {
+  }
+
+  getUserPosts() {
+    // 
+  }
+
+  editProfile() {
+    this.editProfileDialog.open(EditProfileModalComponent, {
+      data: {
+        readme: 'something if needed'
+      }
+    });
   }
 
 }

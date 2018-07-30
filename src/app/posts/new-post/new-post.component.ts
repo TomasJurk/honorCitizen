@@ -50,6 +50,7 @@ export class NewPostComponent implements OnInit {
   ngOnInit() {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);
+      console.log(this.user);
     } else {
       this.router.navigate(['/']);
       setTimeout(() => {

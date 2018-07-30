@@ -23,14 +23,13 @@ export class PostService {
     return this.http.get(`${this.url}/posts/post/${id}`);
   }
 
-  filter(sort, filter, value, limit, skip, range) {
+  filter(sort, filter, value, limit, skip) {
     const query: any = {
       sort,
       filter,
       value,
       limit,
-      skip,
-      range
+      skip
     };
     if (!query.filter) {
       query.value = '';

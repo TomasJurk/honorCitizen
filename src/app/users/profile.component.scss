@@ -1,0 +1,49 @@
+.body-container {
+    height: 100%;
+    min-height: calc(100vh - 114px);
+    width: 100%;
+}
+
+.profile {
+    height: 100%;
+    min-width: 50vw;
+    max-width: 960px; 
+    margin: 50px auto;
+    background-color: aqua;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 0 60px;
+    img {
+        margin: 20px 20px 20px 0;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid black;
+    }
+    h5 {
+        margin: 0;
+    }
+    .edit_profile {
+        cursor: pointer;
+    }
+    .edit_profile:hover {
+        text-decoration: underline;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    header {
+        flex-direction: column;
+        padding-bottom: 20px;
+        img {
+            margin: 20px;
+        }
+        h5 {
+            margin-bottom: 10px;
+        }
+    }
+}

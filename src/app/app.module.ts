@@ -50,6 +50,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/lt';
 import { FooterComponent } from './core/footer/footer.component';
+import { EditProfileModalComponent } from './users/edit-profile-modal/edit-profile-modal.component';
 
 registerLocaleData(localePt, 'lt-BR');
 
@@ -81,6 +82,7 @@ export function getAuthHttp(http: Http) {
     PostModalComponent,
     SelectPlaceComponent,
     FooterComponent,
+    EditProfileModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,7 +119,8 @@ export function getAuthHttp(http: Http) {
   entryComponents: [
     NewUserModalComponent,
     LoginModalComponent,
-    PostModalComponent
+    PostModalComponent,
+    EditProfileModalComponent
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
