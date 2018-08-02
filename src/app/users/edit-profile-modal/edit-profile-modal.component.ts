@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-edit-profile-modal',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProfileModalComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<EditProfileModalComponent>,
+    private _aS: AuthService
+  ) { }
 
   ngOnInit() {
+    console.log(this.data);
   }
 
 }

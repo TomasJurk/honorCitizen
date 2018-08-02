@@ -1,10 +1,16 @@
 <div class="body-container">
   <div class="profile">
     <header>
-      <img src="" alt="">
-      <h5>Username</h5>
+      <img *ngIf="currentUser.facebook" src="{{user.photoURL}}" alt="">
+      <img *ngIf="!currentUser.facebook" src="http://176.223.143.125:3000/{{currentUser.photoURL}}" alt="">
+      <h5>{{currentUser.fullName}}</h5>
       <span class="spacer"></span>
       <span class="edit_profile" (click)="editProfile()">edit</span>
     </header>
+    <main>
+      <div *ngFor="let post of userPosts">
+        {{post._id}}
+      </div>
+    </main>
   </div>
 </div>
